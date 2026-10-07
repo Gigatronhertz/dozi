@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F3EFE7">
+<title>Shop — DOZI</title>
+<meta name="description" content="Modular bases and the parts that change them.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/dozi.css">
+</head>
+<body data-page="shop">
+<main class="wrap">
+  <header class="page-head">
+    <div>
+      <span class="caps muted">Shop</span>
+      <h1 class="display" style="margin-top:16px">Bases, <em>and the parts<br>that change them.</em></h1>
+    </div>
+    <a class="link-arrow" href="design.html">Design your own <span aria-hidden="true">→</span></a>
+  </header>
+  <nav class="filters" aria-label="Filter" data-filters></nav>
+  <div class="ed-grid shop-grid section--tight" data-grid></div>
+</main>
+<script src="assets/js/garment.js"></script>
+<script src="assets/js/site.js"></script>
+<script>
+(function () {
+  var CATS = [["all", "All"], ["tops", "Tops"], ["bottoms", "Bottoms"], ["outerwear", "Outerwear"], ["footwear", "Footwear"], ["bags", "Bags"], ["hats", "Hats"]];
+  // Editorial rhythm: large looks against small products, never a uniform grid.
+  var RHYTHM = [
+    { span: 7, ratio: "4 / 5" }, { span: 5, ratio: "3 / 4", offset: true },
+    { span: 4, ratio: "3 / 4" }, { span: 8, ratio: "16 / 11" },
+    { span: 5, ratio: "4 / 5", offset: true }, { span: 7, ratio: "4 / 5" },
+    { span: 3, ratio: "3 / 4" }, { span: 3, ratio: "3 / 4" }, { span: 6, ratio: "4 / 5" }
+  ];
+  var CAMPAIGNS = [
+    { at: 2, img: "campaign-oxide-pair.jpg", title: "Chapter 02 — Oxide", sub: "One base. Many expressions.", href: "product.html?id=the-set", pos: "50% 30%" },
+    { at: 9, img: "campaign-burgundy-suits.jpg", title: "Chapter 03 — Burgundy", sub: "Modular Corporate", href: "collections.html#corporate", pos: "50% 30%" }
+  ];
+  var grid = document.querySelector("[data-grid]"), filters = document.querySelector("[data-filters]");
+
+  function card(p, r) {
+    var cls = "ed-span-" + r.span + (r.offset ? " ed-offset" : "");
+    var style = "--ratio:" + r.ratio;
+    var frame = p.design && !p.preset
+      ? '<div class="frame" style="background:#EFEAE1;display:flex;align-items:center;justify-content:center">' + DOZI.garment.render({ base: "polo", color: "navy", attachments: ["strap"] }).replace("<svg", '<svg style="width:78%;height:auto"') + "</div>"
+      : '<div class="frame' + (p.flat ? " frame--flat" : "") + '"><img loading="lazy" src="' + DOZI.IMG + p.image + '" alt="' + DOZI.esc(p.name) + ', ' + DOZI.esc(p.material) + '"></div>';
+    return '<a class="card reveal ' + cls + (p.flat ? "" : " card--look") + '" style="' + style + '" href="product.html?id=' + p.id + '">' + frame +
+      '<div class="caption"><span><span class="name">' + DOZI.esc(p.name) + '</span><span class="sub' + (p.design ? " tag-design" : "") + '">' + (p.design ? "Design it" : DOZI.esc(p.material)) + '</span></span><span class="price">' + (p.design ? "from " : "") + DOZI.money(p.price) + "</span></div></a>";
+  }
+  function campaign(c) {
+    return '<a class="reveal ed-span-12" href="' + c.href + '"><div class="frame" style="aspect-ratio:21/9"><img loading="lazy" src="' + DOZI.IMG + c.img + '" alt="" style="object-position:' + c.pos + '"></div>' +
+      '<div class="caption"><span><span class="name">' + c.title + '</span><span class="sub">' + c.sub + "</span></span><span class=\"price\">Campaign</span></div></a>";
+  }
+  function render(cat) {
+    var list = DOZI.PRODUCTS.filter(function (p) { return cat === "all" || p.cat === cat; });
+    var html = "";
+    list.forEach(function (p, i) {
+      if (cat === "all") CAMPAIGNS.forEach(function (c) { if (c.at === i) html += campaign(c); });
+      html += card(p, RHYTHM[i % RHYTHM.length]);
+    });
+    grid.innerHTML = html || '<p class="empty">Nothing in this chapter yet.</p>';
+    filters.innerHTML = CATS.map(function (c) { return '<button data-cat="' + c[0] + '" aria-pressed="' + (c[0] === cat) + '">' + c[1] + "</button>"; }).join("") +
+      '<span class="caps-sm muted" style="margin-left:auto;align-self:center">' + list.length + " pieces</span>";
+    DOZI.reveals();
+  }
+  filters.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-cat]"); if (!b) return;
+    var c = b.getAttribute("data-cat"); history.replaceState(null, "", c === "all" ? "shop.html" : "#" + c); render(c);
+  });
+  window.addEventListener("hashchange", function () { render(location.hash.slice(1) || "all"); });
+  render(location.hash.slice(1) || "all");
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F3EFE7">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/dozi.css">
+<title>Collections — DOZI</title>
+<meta name="description" content="DOZI chapters: Modular Corporate, Modular Utility, Footwear, Carry and Hats.">
+</head>
+<body data-page="collections">
+<main class="wrap">
+  <header class="page-head">
+    <div>
+      <span class="caps muted">Collections</span>
+      <h1 class="display" style="margin-top:16px">The site stays quiet.<br><em>The clothes bring the colour.</em></h1>
+    </div>
+  </header>
+  <hr class="rule" style="margin-bottom:clamp(48px,6vw,96px)">
+  <div data-collections></div>
+</main>
+<script src="assets/js/garment.js"></script>
+<script src="assets/js/site.js"></script>
+<script>
+(function () {
+  var html = DOZI.COLLECTIONS.map(function (c, i) {
+    var items = DOZI.PRODUCTS.filter(function (p) { return p.collection === c.id; }).slice(0, 3);
+    return '<section class="coll' + (i % 2 ? " coll--flip" : "") + '" id="' + c.id + '">' +
+      '<div class="coll__img reveal"><div class="frame"><img loading="lazy" src="' + DOZI.IMG + c.image + '" alt="' + DOZI.esc(c.name) + ' campaign" style="object-position:50% 25%"></div></div>' +
+      '<div class="coll__txt reveal"><span class="caps muted"><i class="swatch" style="display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:10px;background:' + c.colour + '"></i>Chapter 0' + (i + 1) + "</span>" +
+      '<h2 class="display">' + DOZI.esc(c.name) + '</h2><p class="serif" style="font-size:24px;margin:0 0 14px"><em>' + DOZI.esc(c.line) + '</em></p><p class="lede">' + DOZI.esc(c.body) + "</p>" +
+      '<div class="coll__strip">' + items.map(function (p) { return '<a href="product.html?id=' + p.id + '" class="frame' + (p.flat ? " frame--flat" : "") + '" title="' + DOZI.esc(p.name) + '"><img loading="lazy" src="' + DOZI.IMG + p.image + '" alt="' + DOZI.esc(p.name) + '"></a>'; }).join("") + "</div>" +
+      '<a class="link-arrow" href="shop.html#' + (items[0] ? items[0].cat : "") + '">Explore the chapter <span aria-hidden="true">→</span></a></div></section>';
+  }).join("");
+  document.querySelector("[data-collections]").innerHTML = html;
+})();
+</script>
+</body>
+</html>
