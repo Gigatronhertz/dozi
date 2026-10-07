@@ -41,6 +41,29 @@ Ultra-realistic high-end fashion photography, shot on a medium-format camera (Ha
 
 ---
 
+## MODULAR CONSTRUCTION (paste after the Master Style in every garment, product and campaign prompt)
+
+Every DOZI piece is built from parts that detach and reattach. The joins must be **visible but refined**, so a viewer can see that the piece comes apart.
+
+```
+The garment is visibly modular, built from separate parts that detach and reattach: clean, precise joins where each part meets the base: a fine tonal zip or a row of small flat brushed-brass snaps stamped with the leaf mark, sitting along the seam line. The joins look intentional and well-engineered, finished like quality tailoring, not costume or techwear gimmick. Each detachable part has a slightly different seam line so the construction can be read at a glance.
+```
+
+**Where the joins go on each piece:**
+| Piece | Detachable parts and how they attach |
+|---|---|
+| The Polo | sleeves: tonal zip around each armhole · collar: tonal zip around the neckline base · side panels: zip channel down each side seam · chest: two flat brass snaps for the pocket · right hem: small brass loop for a charm |
+| Wide Trouser | strap rail: a thin leather-trimmed rail along the waistband · two brass D-rings at the hips for straps and charms · a zip at each hem for leg extensions or cuffs |
+| Jackets | sleeves: zip around each armhole (vest when removed) · hood: zip along the collar · pockets: snap-on, on chest and sleeves · front and back panels: zip-in |
+| Tees | side panels: zip channel down each side · sleeves: zip at the shoulder (raglan seam on the Raglan Tee) · pockets: clip-on loops |
+| Sweatpant / Cargo Short | cargo pockets: snap-on on the thighs · side panels: zip-in · legs: zip above the knee (converts short ↔ long) · ankle: swappable cuffs |
+| Bags | pouches: snap and strap-loop on the sides · front panel: snap-on · strap: brass clips at both ends (backpack ↔ shoulder ↔ crossbody) |
+| Sneakers / Boots | side panels: snap-on · heel module: clip-in at the back · tongue: swappable with a pouch version · boot collar and straps: removable |
+| Heels | front panel: snap-on · ankle strap: buckle-on · heel module: twist-lock |
+| Hats | band: snap-closed and swappable · pin and feather: clip-on · veil: snap-on at the band |
+
+---
+
 ## 1. DESIGN STUDIO — the garment (most important)
 
 The studio shows **one real garment** in the centre. Each choice (colour, collar, sleeve) swaps the photograph for the matching version.
@@ -48,7 +71,7 @@ The studio shows **one real garment** in the centre. Each choice (colour, collar
 ### S-01 · The base image (generate this first, then use it as the reference)
 
 ```
-[MASTER STYLE] Ghost-mannequin (invisible mannequin) product photograph of an oversized heavyweight cotton polo-style T-shirt in deep navy blue (#1F2B4D), front view, perfectly centred and symmetrical, shoulders level, dropped shoulder seam, boxy relaxed fit, hem straight, short sleeves ending above the elbow, round crew neck with a 2cm ribbed collar band. The garment has subtle hidden attachment points: a thin tonal zip channel running down each side seam and two small flat brushed-brass snaps on the left chest. A small tonal embroidered DOZI leaf mark on the centre chest [leaf mark wording]. Hollow neck opening showing the inside back collar and the woven label. The garment fills 70% of the frame height with even margins. Plain seamless warm bone-white paper background (#F3EFE7), soft floor shadow. 4:5 vertical.
+[MASTER STYLE] Ghost-mannequin (invisible mannequin) product photograph of an oversized heavyweight cotton polo-style T-shirt in deep navy blue (#1F2B4D), front view, perfectly centred and symmetrical, shoulders level, dropped shoulder seam, boxy relaxed fit, hem straight, short sleeves ending above the elbow, round crew neck with a 2cm ribbed collar band. The garment is visibly modular: each sleeve attaches with a fine tonal zip that runs all the way around the armhole, the collar attaches with a fine tonal zip around the base of the neckline, a thin tonal zip channel runs down each side seam for zip-in panels, two small flat brushed-brass snaps stamped with the leaf mark sit on the left chest for a snap-on pocket, and a small brass loop at the right hem holds a charm. The joins are clean and precise, finished like quality tailoring. A small tonal embroidered DOZI leaf mark on the centre chest [leaf mark wording]. Hollow neck opening showing the inside back collar and the woven label. The garment fills 70% of the frame height with even margins. Plain seamless warm bone-white paper background (#F3EFE7), soft floor shadow. 4:5 vertical.
 ```
 File: `S-polo-navy-round-short.jpg`
 
@@ -133,6 +156,8 @@ Colour swatches in the studio don't need images. I'll render those.
 
 ## 3. HOMEPAGE & CAMPAIGN (people)
 
+In every campaign shot, at least one modular detail must be clearly visible: a zip-on sleeve in a contrast colour, a snap-on pocket, a strap clipped to a D-ring, a charm on its loop. The clothes should read as *built from parts* at a glance.
+
 Add this realism block to every prompt with a model:
 ```
 Real person, not a model-agency stereotype: natural skin with visible pores and texture, natural hair with flyaways, real hands with correct anatomy, relaxed, unposed expression. Natural late-afternoon sunlight, long soft shadows, architecture of pale stone and concrete columns. Shot on 35mm film-look medium format, subtle grain, no retouching gloss.
@@ -165,8 +190,15 @@ Real person, not a model-agency stereotype: natural skin with visible pores and 
 
 ## 5. SHOP — product pages (ghost mannequin, 4:5, bone background)
 
-Use the S-01 style (ghost mannequin, centred, bone background) for each item:
-`P-core-jacket`, `P-cropped-jacket`, `P-core-tee`, `P-raglan-tee`, `P-sweatpant`, `P-cargo-short`, `P-wide-trouser-chocolate`, `P-backpack`, `P-crossbody`, `P-core-sneaker` (3/4 side view), `P-boot`, `P-heel`, `P-fedora`.
+Use the S-01 style (ghost mannequin, centred, bone background) plus the **Modular Construction** block for each item. Describe its parts using the table under Modular Construction. For example:
+
+```
+[MASTER STYLE] [MODULAR CONSTRUCTION] Ghost-mannequin product photograph of the DOZI Core Jacket in soft washed black waxed cotton, front view, centred. The sleeves attach with fine zips around each armhole, one sleeve shown partly unzipped to reveal the join. The hood is zipped onto the collar. Two snap-on chest pockets with brushed-brass leaf snaps, one sleeve pocket. Plain seamless warm bone-white paper background (#F3EFE7). 4:5 vertical.
+```
+
+Items: `P-core-jacket`, `P-cropped-jacket`, `P-core-tee`, `P-raglan-tee`, `P-sweatpant`, `P-cargo-short`, `P-wide-trouser-chocolate`, `P-backpack`, `P-crossbody`, `P-core-sneaker` (3/4 side view), `P-boot`, `P-heel`, `P-fedora`.
+
+**Show one part partly detached** (a sleeve half-unzipped, a pocket lifted off its snaps, a strap unclipped) in each `P-` image. Only the product shots do this; the studio images stay fully assembled so they swap cleanly.
 
 For each one, also make **one on-model shot** (`L-…`, 2:3 portrait) using the realism block in Section 3. These fill the large tiles in the shop's editorial grid.
 
