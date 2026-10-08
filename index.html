@@ -72,7 +72,7 @@
         <div class="caption"><span><span class="name">The Wide Trouser</span><span class="sub">Chocolate / Wool Twill</span></span><span class="price">₦92,000</span></div>
       </a>
       <a class="ed-span-4 ed-right reveal ed-offset" href="product.html?id=the-polo">
-        <div class="frame ratio-tall" data-home-polo style="background:#EFEAE1;display:flex;align-items:center;justify-content:center"></div>
+        <div class="frame frame--look ratio-tall" data-home-polo></div>
         <div class="caption"><span><span class="name">The Polo</span><span class="sub tag-design">Design it</span></span><span class="price">from ₦68,000</span></div>
       </a>
       <a class="ed-span-4 reveal" href="product.html?id=core-jacket">
@@ -126,22 +126,20 @@
 
 </main>
 
-<script src="assets/js/garment.js"></script>
+<script src="assets/js/look.js"></script>
 <script src="assets/js/site.js"></script>
 <script>
   (function () {
-    var G = DOZI.garment;
     var steps = [
-      [{ base: "polo", fit: "oversized", color: "navy", collar: "round", sleeve: "short", attachments: [], label: "woven" }, "01 Base", "The Polo, navy"],
-      [{ base: "polo", fit: "oversized", color: "navy", collar: "polo", sleeve: "short", attachments: ["strap", "pocket"], label: "woven" }, "02 Add", "Collar, strap, pocket"],
-      [{ base: "set", fit: "oversized", color: "navy", bottomColor: "navy", collar: "polo", sleeve: "raglan", sleeveColor: "cream", attachments: ["strap", "pocket", "charm"], label: "woven" }, "03 Transform", "Your design"]
+      [{ collar: "crew", sleeve: "short" }, "01 Base", "The Polo, crew neck"],
+      [{ collar: "polo", sleeve: "short", pocket: true, hem: "charm" }, "02 Add", "Collar, pocket, charm"],
+      [{ collar: "polo", sleeve: "long", color: "oxide", pocket: true, panels: true, hem: "strap" }, "03 Transform", "Your design"]
     ];
-    var el = document.querySelector("[data-home-transform]");
-    el.innerHTML = steps.map(function (s, i) {
+    document.querySelector("[data-home-transform]").innerHTML = steps.map(function (s, i) {
       return (i ? '<span class="arrow" aria-hidden="true">→</span>' : "") +
-        '<div class="step">' + G.render(s[0], { viewBox: "40 24 520 900" }) + '<span class="caps">' + s[1] + '</span><span class="caps-sm muted">' + s[2] + "</span></div>";
+        '<div class="step"><div class="frame frame--look">' + DOZI.look.html(s[0]) + '</div><span class="caps">' + s[1] + '</span><span class="caps-sm muted">' + s[2] + "</span></div>";
     }).join("");
-    document.querySelector("[data-home-polo]").innerHTML = G.render({ base: "polo", color: "navy", attachments: ["strap"] }, { className: "" }).replace("<svg", '<svg style="width:82%;height:auto"');
+    document.querySelector("[data-home-polo]").innerHTML = DOZI.look.html({ pocket: true });
   })();
 </script>
 </body>

@@ -24,11 +24,11 @@
   <nav class="filters" aria-label="Filter" data-filters></nav>
   <div class="ed-grid shop-grid section--tight" data-grid></div>
 </main>
-<script src="assets/js/garment.js"></script>
+<script src="assets/js/look.js"></script>
 <script src="assets/js/site.js"></script>
 <script>
 (function () {
-  var CATS = [["all", "All"], ["tops", "Tops"], ["bottoms", "Bottoms"], ["outerwear", "Outerwear"], ["footwear", "Footwear"], ["bags", "Bags"], ["hats", "Hats"]];
+  var CATS = [["all", "All"], ["tops", "Tops"], ["bottoms", "Bottoms"], ["outerwear", "Outerwear"], ["footwear", "Footwear"], ["dresses", "Dresses"], ["bags", "Bags"], ["hats", "Hats"]];
   // Editorial rhythm: large looks against small products, never a uniform grid.
   var RHYTHM = [
     { span: 7, ratio: "4 / 5" }, { span: 5, ratio: "3 / 4", offset: true },
@@ -46,7 +46,7 @@
     var cls = "ed-span-" + r.span + (r.offset ? " ed-offset" : "");
     var style = "--ratio:" + r.ratio;
     var frame = p.design && !p.preset
-      ? '<div class="frame" style="background:#EFEAE1;display:flex;align-items:center;justify-content:center">' + DOZI.garment.render({ base: "polo", color: "navy", attachments: ["strap"] }).replace("<svg", '<svg style="width:78%;height:auto"') + "</div>"
+      ? '<div class="frame frame--look">' + DOZI.look.html({ pocket: true, hem: "charm" }) + "</div>"
       : '<div class="frame' + (p.flat ? " frame--flat" : "") + '"><img loading="lazy" src="' + DOZI.IMG + p.image + '" alt="' + DOZI.esc(p.name) + ', ' + DOZI.esc(p.material) + '"></div>';
     return '<a class="card reveal ' + cls + (p.flat ? "" : " card--look") + '" style="' + style + '" href="product.html?id=' + p.id + '">' + frame +
       '<div class="caption"><span><span class="name">' + DOZI.esc(p.name) + '</span><span class="sub' + (p.design ? " tag-design" : "") + '">' + (p.design ? "Design it" : DOZI.esc(p.material)) + '</span></span><span class="price">' + (p.design ? "from " : "") + DOZI.money(p.price) + "</span></div></a>";

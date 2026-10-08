@@ -4,6 +4,26 @@ These prompts produce the photography the site needs. The most important set is 
 
 ---
 
+## Status: what's in, what's still needed (updated 8 Oct)
+
+**In the site now** (from the images you sent):
+- The Polo, navy: polo collar + short sleeve, and crew neck + long sleeve. Same framing, so the studio also builds **polo + long** and **crew + short** by swapping the collar area between the two photos.
+- 8 colours × 3 hardware finishes, made by recolouring the real navy photos (folds and knit kept).
+- Attachments cut from the two polo system boards: utility pocket, side panels, leaf charm, hem strap. Plus collar, sleeve, hardware and detail close-ups for the tray.
+- Denim tailoring, oversized denim, denim bags, navy dresses and the polo-on-model shots, cropped per look and upscaled.
+
+**Still needed to complete the studio** (same framing as `polo-navy-polo-short`, ghost mannequin, bone background):
+- [ ] `S-polo-navy-mock-short`: mock neck (shown in the studio as "In sampling")
+- [ ] `S-polo-navy-polo-raglan`: raglan sleeves in oxide ("In sampling")
+- [ ] `S-polo-navy-fit-regular`, `S-polo-navy-fit-cropped` ("In sampling")
+- [ ] `S-trouser-navy`: the wide trouser, for The Set ("In sampling")
+- [ ] Real photos of `polo + long` and `crew + short` to replace the two composites
+- [ ] One real photo per colour you want to launch (oxide, cream, black). The recolours are good enough to design with but should be checked against real fabric before launch.
+
+**Not usable as delivered:** `board-baggy-trouser` has measurement lines and text over the garments. Regenerate it without annotations.
+
+---
+
 ## 0. How to run these (read first)
 
 1. **Paste the Master Style block in front of every prompt.** It keeps lighting, colour and realism the same across the whole set.

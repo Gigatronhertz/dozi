@@ -9,11 +9,32 @@
 
   /* ---------- Catalogue (prices are placeholders) ---------- */
   var PRODUCTS = [
-    { id: "the-polo", name: "The Polo", price: 68000, cat: "tops", collection: "corporate", material: "Navy / Heavy Cotton", image: "campaign-navy-polo.jpg", design: true,
-      blurb: "An oversized, heavyweight polo cut as a base. Change the collar, the sleeve and what attaches to it. Wear it plain or build it out.",
-      flat: null },
-    { id: "the-set", name: "The Set", price: 160000, cat: "tops", collection: "corporate", material: "Polo + Wide Trouser", image: "campaign-oxide-pair.jpg", design: true, preset: { base: "set", color: "oxide", bottomColor: "oxide", collar: "polo", sleeve: "long", attachments: ["strap"] },
-      blurb: "The Polo with the pleated wide trouser, cut to be worn as one colour or broken up. Both pieces take the same attachments." },
+    { id: "the-polo", name: "The Polo", price: 68000, cat: "tops", collection: "utility", material: "Navy / Heavy Cotton Piqué", image: "lookbook/polo-model-01.jpg", design: true,
+      blurb: "An oversized, heavyweight polo cut as a base. The collar and sleeves zip off, the side seams take panels, the chest takes a pocket and the hem loop takes a charm or a strap." },
+    { id: "the-set", name: "The Set", price: 160000, cat: "tops", collection: "corporate", material: "Polo + Wide Trouser", image: "campaign-oxide-pair.jpg",
+      blurb: "The Polo with the pleated wide trouser, cut to be worn as one colour or broken up. Both pieces take the same attachments.",
+      options: [["Colour", ["Oxide", "Navy", "Burgundy"]], ["Jacket", ["Without", "With jacket"]], ["Tie", ["None", "Matching"]]],
+      changes: [["lookbook/polo-model-01.jpg", "Base"], ["campaign-navy-polo.jpg", "Add"], ["campaign-oxide-pair.jpg", "Transform"]] },
+    { id: "denim-suit", name: "The Denim Suit", price: 210000, cat: "outerwear", collection: "denim", material: "Raw Indigo / 14oz Denim", image: "lookbook/suit-01.jpg", flat: true,
+      blurb: "Tailoring that comes apart. Zip-in welt pockets, a snap-on patch-pocket vest and a trouser that converts to cargo.",
+      options: [["Jacket", ["Single-breasted", "Double-breasted", "Utility"]], ["Vest", ["None", "Patch-pocket vest"]], ["Trouser", ["Straight", "Cargo"]]],
+      changes: [["lookbook/suit-01.jpg", "Base"], ["lookbook/suit-02.jpg", "Add"], ["lookbook/suit-05.jpg", "Transform"]] },
+    { id: "denim-coat", name: "The Denim Coat", price: 240000, cat: "outerwear", collection: "denim", material: "Washed Indigo Denim", image: "lookbook/denim-03.jpg", flat: true,
+      blurb: "A long coat with a zip-off skirt, removable belt and snap-on storm flap. Shorten it to a jacket in one zip.",
+      options: [["Length", ["Long", "Zip-off jacket"]], ["Belt", ["None", "Self belt"]], ["Collar", ["Notch", "Storm flap"]]],
+      changes: [["lookbook/denim-01.jpg", "Base"], ["lookbook/denim-02.jpg", "Add"], ["lookbook/denim-03.jpg", "Transform"]] },
+    { id: "denim-utility", name: "The Utility Denim Set", price: 230000, cat: "outerwear", collection: "denim", material: "Indigo / Black Panels", image: "lookbook/denim-05.jpg", flat: true,
+      blurb: "Field jacket and wide trouser with zip-in contrast panels, D-rings and buckle straps at the knee and ankle.",
+      options: [["Panels", ["Black", "Indigo", "None"]], ["Ankle", ["Open", "Strapped"]]],
+      changes: [["lookbook/denim-04.jpg", "Base"], ["lookbook/denim-05.jpg", "Transform"]] },
+    { id: "column-dress", name: "The Column Dress", price: 175000, cat: "dresses", collection: "denim", material: "Navy / Cotton Twill", image: "lookbook/dress-01.jpg", flat: true,
+      blurb: "One dress, several necklines and two lengths. The skirt zips off to a mini; the harness and cargo pockets snap on.",
+      options: [["Neckline", ["Off-shoulder", "Halter", "Straps"]], ["Length", ["Maxi", "Zip-off mini"]], ["Utility", ["None", "Cargo pockets", "Harness"]]],
+      changes: [["lookbook/dress-03.jpg", "Base"], ["lookbook/dress-01.jpg", "Add"], ["lookbook/dress-05.jpg", "Transform"]] },
+    { id: "denim-carry", name: "The Denim Carry System", price: 150000, cat: "bags", collection: "denim", material: "Patchwork Indigo / Brass", image: "lookbook/lineup-bags.jpg", flat: true,
+      blurb: "Pouches, straps and harnesses that move between a backpack, a messenger, a chest rig, a duffel and a tote.",
+      options: [["Base", ["Backpack", "Messenger", "Chest rig", "Duffel", "Tote"]], ["Pouches", ["Two", "Four"]]],
+      changes: [["lookbook/lineup-bags.jpg", "Base"]] },
     { id: "wide-trouser", name: "The Wide Trouser", price: 92000, cat: "bottoms", collection: "corporate", material: "Chocolate / Wool Twill", image: "look-corporate.jpg",
       blurb: "High-rise and double-pleated, with a hidden rail at the waist for straps, charms and trouser attachments.",
       options: [["Waist", ["Plain", "Belted", "Strap rail"]], ["Attachment", ["None", "Leather strap", "Chain"]], ["Charm", ["None", "DOZI", "Pearl"]]],
@@ -69,6 +90,7 @@
   ];
 
   var COLLECTIONS = [
+    { id: "denim", name: "Modular Denim", colour: "#2B3A5C", image: "lookbook/suit-04.jpg", line: "Tailoring that comes apart.", body: "Indigo suits, coats, dresses and bags with zip-off lengths, snap-on pockets and convertible hems." },
     { id: "corporate", name: "Modular Corporate", colour: "#6B1F26", image: "campaign-burgundy-suits.jpg", line: "One outfit. Many expressions.", body: "Ties, cuffs, trouser attachments and charms change a shirt and trouser between the boardroom and the evening." },
     { id: "utility", name: "Modular Utility", colour: "#4D4B31", image: "look-sweat.jpg", line: "One garment. Many versions.", body: "Jackets, tees, sweatpants and shorts with zip channels, snap rails and detachable panels." },
     { id: "footwear", name: "Footwear", colour: "#8E3426", image: "look-shoes.jpg", line: "Walk. Detach. Attach.", body: "Sneakers, boots and heels with side panels, heel modules and swappable straps." },
@@ -76,40 +98,38 @@
     { id: "hats", name: "Hats", colour: "#4A3025", image: "look-hats.jpg", line: "Timeless materials. Modern people.", body: "Fedoras, berets and caps with bands, pins, feathers and veils you swap." }
   ];
 
-  /* ---------- Pricing for the designable polo ---------- */
+  /* ---------- Pricing for the designable polo (placeholders) ---------- */
   var DESIGN_PRICES = {
-    base: { polo: 68000, set: 160000 },
-    collar: { round: 0, polo: 4000, mock: 3000 },
-    sleeve: { short: 0, long: 6000, raglan: 5000 },
-    attachments: { strap: 18000, pocket: 9500, panel: 7500, charm: 6000 }
+    base: 68000,
+    sleeve: { short: 0, long: 6000 },
+    pocket: 9500, panels: 7500,
+    hem: { none: 0, charm: 6000, strap: 12000 }
   };
-  function designPrice(s) {
-    var p = DESIGN_PRICES.base[s.base] || 0;
-    p += DESIGN_PRICES.collar[s.collar] || 0;
-    p += DESIGN_PRICES.sleeve[s.sleeve] || 0;
-    (s.attachments || []).forEach(function (a) { p += DESIGN_PRICES.attachments[a] || 0; });
-    return p;
+  function designPrice(state) {
+    var s = DOZI.look.normalize(state);
+    return DESIGN_PRICES.base + DESIGN_PRICES.sleeve[s.sleeve] + (s.pocket ? DESIGN_PRICES.pocket : 0) +
+      (s.panels ? DESIGN_PRICES.panels : 0) + DESIGN_PRICES.hem[s.hem];
   }
   var LABELS = {
-    base: { polo: "The Polo", set: "The Set" },
-    fit: { regular: "Regular", oversized: "Oversized", cropped: "Cropped" },
-    collar: { round: "Round Neck", polo: "Polo Collar", mock: "Mock Neck" },
+    collar: { polo: "Polo Collar", crew: "Crew Neck", mock: "Mock Neck" },
     sleeve: { short: "Short", long: "Long", raglan: "Raglan" },
-    attachments: { strap: "Leather Strap", pocket: "Utility Pocket", panel: "Side Panels", charm: "DOZI Charm" },
-    label: { woven: "Woven Leaf", tonal: "Tonal Leaf", none: "No Mark" }
+    hem: { none: "None", charm: "Leaf Charm", strap: "Hem Strap" }
   };
-  function designSummary(s) {
-    var G = DOZI.garment, C = G.COLORS;
-    var rows = [
-      ["Base", LABELS.base[s.base]],
-      ["Fit", LABELS.fit[s.fit]],
-      ["Colour", C[s.color].name + (s.base === "set" && s.bottomColor !== s.color ? " / " + C[s.bottomColor].name : "")],
+  function designSummary(state) {
+    var s = DOZI.look.normalize(state), L = DOZI.look;
+    var att = [];
+    if (s.pocket) att.push("Utility Pocket");
+    if (s.panels) att.push("Side Panels");
+    if (s.hem !== "none") att.push(LABELS.hem[s.hem]);
+    return [
+      ["Base", "The Polo"],
+      ["Fit", "Oversized"],
+      ["Colour", L.COLORS[s.color].name],
       ["Collar", LABELS.collar[s.collar]],
-      ["Sleeve", LABELS.sleeve[s.sleeve] + (s.sleeveColor && s.sleeveColor !== "match" ? " · " + C[s.sleeveColor].name : "")],
-      ["Attach", (s.attachments || []).length ? s.attachments.map(function (a) { return LABELS.attachments[a]; }).join(", ") : "None"],
-      ["Finish", G.HARDWARE[s.hardware].name + " · " + LABELS.label[s.label]]
+      ["Sleeve", LABELS.sleeve[s.sleeve]],
+      ["Attach", att.length ? att.join(", ") : "None"],
+      ["Finish", L.HARDWARE[s.hardware].name]
     ];
-    return rows;
   }
 
   function money(n) { return "₦" + Number(n).toLocaleString("en-NG"); }
@@ -203,7 +223,7 @@
     open("bag");
   }
   function itemThumb(it) {
-    if (it.design) return '<div class="frame">' + DOZI.garment.render(it.design, { mini: true }) + "</div>";
+    if (it.design) return '<div class="frame frame--look">' + DOZI.look.html(it.design) + "</div>";
     return '<div class="frame' + (it.flat ? " frame--flat" : "") + '"><img src="' + IMG + it.image + '" alt=""></div>';
   }
   function renderBag() {

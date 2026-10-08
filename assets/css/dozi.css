@@ -421,8 +421,7 @@ a.frame:hover img, a:hover > .frame img { transform: scale(1.025); }
 .studio__steps li.is-active button { color: var(--ink); }
 .studio__steps li.is-active .k::before { content: "↓ "; letter-spacing: 0; }
 
-.studio__stage { position: sticky; top: var(--nav-h); align-self: start; height: calc(100svh - var(--nav-h)); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px; background:
-  radial-gradient(ellipse at 50% 45%, #F7F4EE 0%, var(--bone) 62%); overflow: hidden; }
+.studio__stage { position: sticky; top: var(--nav-h); align-self: start; height: calc(100svh - var(--nav-h)); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px; background: var(--bone); overflow: hidden; }
 .studio__stage .meta { position: absolute; top: 28px; left: 32px; right: 32px; display: flex; justify-content: space-between; color: var(--stone-2); }
 .studio__stage .hint { position: absolute; bottom: 28px; left: 0; right: 0; text-align: center; color: var(--stone-2); }
 .stage-svg { height: calc(100svh - var(--nav-h) - 150px); width: auto; max-width: 100%; overflow: visible; }
@@ -539,3 +538,68 @@ a.frame:hover img, a:hover > .frame img { transform: scale(1.025); }
 
 .not-list { display: flex; flex-wrap: wrap; gap: 10px 28px; color: var(--stone-2); }
 .not-list span { text-decoration: line-through; text-decoration-thickness: 1px; }
+
+/* ==========================================================================
+   LOOK — photographic garment composites (base photo + real attachments)
+   ========================================================================== */
+.look { position: relative; aspect-ratio: 1122 / 1402; width: 100%; }
+.look img { position: absolute; display: block; max-width: none; }
+.look__base { inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.look__layer { pointer-events: none; }
+.frame--look { background: #F3EFE7; display: flex; align-items: center; justify-content: center; }
+.frame--look .look { height: 100%; width: auto; max-width: 100%; }
+.frame--look img { transition: none; }
+a:hover > .frame--look img, a.frame--look:hover img { transform: none; }
+
+/* ---------- Studio stage: photographic ---------- */
+.stage-look { height: calc(100svh - var(--nav-h) - 130px); width: auto; max-width: 100%; }
+.stage-look .look__next { opacity: 0; transition: opacity .5s var(--ease); }
+.stage-look .look__next.is-on { opacity: 1; }
+.stage-look [data-base] { transition: opacity .45s var(--ease); }
+.stage-look.is-dim [data-base], .stage-look.is-dim .look__layers { opacity: .38; }
+.look__layers { position: absolute; inset: 0; transition: opacity .45s var(--ease); }
+.look__layer { transition: transform .55s cubic-bezier(.3, 1.4, .45, 1), opacity .35s var(--ease), filter .35s; }
+.look__layer.is-entering { opacity: 0; transform: translateY(-34px) scale(1.04); }
+.look__layer.is-leaving { opacity: 0; transform: translateY(26px); }
+.look__layer.is-detached { transform: translateY(-16px); filter: drop-shadow(0 14px 14px rgba(0, 0, 0, .28)); }
+
+/* a photographed part lifted off the garment */
+.lift { position: absolute; inset: 0; pointer-events: none; display: none;
+  transition: transform .62s cubic-bezier(.3, 1.3, .45, 1); filter: drop-shadow(0 18px 22px rgba(23, 22, 20, .26)); }
+.lift.is-on { display: block; }
+.lift img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.lift img { -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
+.is-lifted .lift--collar { transform: translateY(-8%); }
+.is-lifted .lift--sleeve-l { transform: translate(-9%, 2%) rotate(-3deg); }
+.is-lifted .lift--sleeve-r { transform: translate(9%, 2%) rotate(3deg); }
+
+.hot { position: absolute; z-index: 3; border-radius: 6px; cursor: pointer; }
+.hot:hover, .hot:focus-visible { outline: 1px dashed rgba(23, 22, 20, .35); outline-offset: -1px; background: rgba(243, 239, 231, .06); }
+
+/* tiles: options shown as real photographs */
+.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.tile { display: flex; flex-direction: column; align-items: stretch; text-align: left; border: 1px solid var(--line); background: #F7F4EE; padding: 6px 6px 9px; transition: border-color .2s, transform .3s var(--ease); position: relative; }
+.tile:hover:not([disabled]) { border-color: var(--ink); }
+.tile[aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.tile[disabled] { cursor: not-allowed; opacity: .55; }
+.tile__img { display: block; aspect-ratio: 1; overflow: hidden; background: #EFEAE1; }
+.tile__img img { width: 100%; height: 100%; object-fit: cover; }
+.tile__img--swatch { border-radius: 50%; }
+.tile__img--none { display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 26px; color: var(--stone-2); }
+.tile__label { font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; margin-top: 7px; line-height: 1.3; }
+.tile__note { font-size: 9.5px; color: var(--stone-2); letter-spacing: .06em; margin-top: 2px; }
+.group .tiles + .tiles { margin-top: 0; }
+.tray__items .tile { flex: 0 0 112px; }
+
+.parts-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+.parts-grid figure { margin: 0; }
+.parts-grid .frame { aspect-ratio: 1; }
+.parts-grid figcaption { padding-top: 10px; }
+@media (max-width: 900px) { .parts-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 960px) { .stage-look { height: calc(74svh - 100px); } }
+.opt--img { display: inline-flex; flex-direction: column; align-items: center; gap: 6px; padding: 5px 5px 7px; width: 74px; }
+.opt--img img { width: 62px; height: 62px; object-fit: cover; background: #EFEAE1; }
+.opt--img[aria-pressed="true"] { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.sw--photo { background-size: cover; background-position: center; }
+.pdp__media .live .look { width: 100%; }
+.transform-row .frame--look { aspect-ratio: 1122 / 1402; max-height: 460px; margin: 0 auto; }
