@@ -8,94 +8,22 @@
   var IMG = "assets/img/";
 
   /* ---------- Catalogue (prices are placeholders) ---------- */
+  // The Polo is designed part by part; every other piece is a photographed system of versions.
   var PRODUCTS = [
-    { id: "the-polo", name: "The Polo", price: 68000, cat: "tops", collection: "utility", material: "Navy / Heavy Cotton Piqué", image: "lookbook/polo-model-01.jpg", design: true,
-      blurb: "An oversized, heavyweight polo cut as a base. The collar and sleeves zip off, the side seams take panels, the chest takes a pocket and the hem loop takes a charm or a strap." },
-    { id: "the-set", name: "The Set", price: 160000, cat: "tops", collection: "corporate", material: "Polo + Wide Trouser", image: "campaign-oxide-pair.jpg",
-      blurb: "The Polo with the pleated wide trouser, cut to be worn as one colour or broken up. Both pieces take the same attachments.",
-      options: [["Colour", ["Oxide", "Navy", "Burgundy"]], ["Jacket", ["Without", "With jacket"]], ["Tie", ["None", "Matching"]]],
-      changes: [["lookbook/polo-model-01.jpg", "Base"], ["campaign-navy-polo.jpg", "Add"], ["campaign-oxide-pair.jpg", "Transform"]] },
-    { id: "denim-suit", name: "The Denim Suit", price: 210000, cat: "outerwear", collection: "denim", material: "Raw Indigo / 14oz Denim", image: "lookbook/suit-01.jpg", flat: true,
-      blurb: "Tailoring that comes apart. Zip-in welt pockets, a snap-on patch-pocket vest and a trouser that converts to cargo.",
-      options: [["Jacket", ["Single-breasted", "Double-breasted", "Utility"]], ["Vest", ["None", "Patch-pocket vest"]], ["Trouser", ["Straight", "Cargo"]]],
-      changes: [["lookbook/suit-01.jpg", "Base"], ["lookbook/suit-02.jpg", "Add"], ["lookbook/suit-05.jpg", "Transform"]] },
-    { id: "denim-coat", name: "The Denim Coat", price: 240000, cat: "outerwear", collection: "denim", material: "Washed Indigo Denim", image: "lookbook/denim-03.jpg", flat: true,
-      blurb: "A long coat with a zip-off skirt, removable belt and snap-on storm flap. Shorten it to a jacket in one zip.",
-      options: [["Length", ["Long", "Zip-off jacket"]], ["Belt", ["None", "Self belt"]], ["Collar", ["Notch", "Storm flap"]]],
-      changes: [["lookbook/denim-01.jpg", "Base"], ["lookbook/denim-02.jpg", "Add"], ["lookbook/denim-03.jpg", "Transform"]] },
-    { id: "denim-utility", name: "The Utility Denim Set", price: 230000, cat: "outerwear", collection: "denim", material: "Indigo / Black Panels", image: "lookbook/denim-05.jpg", flat: true,
-      blurb: "Field jacket and wide trouser with zip-in contrast panels, D-rings and buckle straps at the knee and ankle.",
-      options: [["Panels", ["Black", "Indigo", "None"]], ["Ankle", ["Open", "Strapped"]]],
-      changes: [["lookbook/denim-04.jpg", "Base"], ["lookbook/denim-05.jpg", "Transform"]] },
-    { id: "column-dress", name: "The Column Dress", price: 175000, cat: "dresses", collection: "denim", material: "Navy / Cotton Twill", image: "lookbook/dress-01.jpg", flat: true,
-      blurb: "One dress, several necklines and two lengths. The skirt zips off to a mini; the harness and cargo pockets snap on.",
-      options: [["Neckline", ["Off-shoulder", "Halter", "Straps"]], ["Length", ["Maxi", "Zip-off mini"]], ["Utility", ["None", "Cargo pockets", "Harness"]]],
-      changes: [["lookbook/dress-03.jpg", "Base"], ["lookbook/dress-01.jpg", "Add"], ["lookbook/dress-05.jpg", "Transform"]] },
-    { id: "denim-carry", name: "The Denim Carry System", price: 150000, cat: "bags", collection: "denim", material: "Patchwork Indigo / Brass", image: "lookbook/lineup-bags.jpg", flat: true,
-      blurb: "Pouches, straps and harnesses that move between a backpack, a messenger, a chest rig, a duffel and a tote.",
-      options: [["Base", ["Backpack", "Messenger", "Chest rig", "Duffel", "Tote"]], ["Pouches", ["Two", "Four"]]],
-      changes: [["lookbook/lineup-bags.jpg", "Base"]] },
-    { id: "wide-trouser", name: "The Wide Trouser", price: 92000, cat: "bottoms", collection: "corporate", material: "Chocolate / Wool Twill", image: "look-corporate.jpg",
-      blurb: "High-rise and double-pleated, with a hidden rail at the waist for straps, charms and trouser attachments.",
-      options: [["Waist", ["Plain", "Belted", "Strap rail"]], ["Attachment", ["None", "Leather strap", "Chain"]], ["Charm", ["None", "DOZI", "Pearl"]]],
-      changes: [["look-corporate-side.jpg", "Base"], ["detail-hangtag.jpg", "Add"], ["look-corporate.jpg", "Transform"]] },
-    { id: "core-tee", name: "The Core Tee", price: 45000, cat: "tops", collection: "utility", material: "Black / Cotton Jersey", image: "p-core-tee.jpg", flat: true,
-      blurb: "The simplest DOZI base. Zip channels at the sides take panels, pockets and straps.",
-      options: [["Side panel", ["None", "Olive", "Cream", "Oxide"]], ["Sleeve", ["Short", "Long", "Raglan"]], ["Pocket", ["None", "Clip-on", "Zip-on"]]],
-      changes: [["p-core-tee.jpg", "Base"], ["p-panel-tee.jpg", "Add"], ["p-utility-tee.jpg", "Transform"]] },
-    { id: "raglan-tee", name: "The Raglan Tee", price: 52000, cat: "tops", collection: "utility", material: "Olive / Oxide Sleeves", image: "p-raglan-tee.jpg", flat: true,
-      blurb: "Contrast raglan sleeves that unzip at the seam. Swap them for long sleeves when the weather turns.",
-      options: [["Sleeve", ["Oxide", "Black", "Cream"]], ["Length", ["Short", "Long"]]],
-      changes: [["p-core-tee.jpg", "Base"], ["p-raglan-tee.jpg", "Add"], ["p-crop-tee.jpg", "Transform"]] },
-    { id: "core-jacket", name: "The Core Jacket", price: 185000, cat: "outerwear", collection: "utility", material: "Black / Waxed Cotton", image: "look-jacket.jpg",
-      blurb: "One jacket, many versions. Sleeves, hood, pockets and panels all detach, so the jacket can be a vest, a parka or something in between.",
-      options: [["Hood", ["None", "Black", "Olive", "Cream"]], ["Sleeves", ["Black", "Olive", "Oxide", "Removed"]], ["Pockets", ["Standard", "Utility", "None"]]],
-      changes: [["p-core-jacket.jpg", "Base"], ["look-jacket-back.jpg", "Add"], ["p-custom-jacket.jpg", "Transform"]] },
-    { id: "cropped-jacket", name: "The Cropped Jacket", price: 165000, cat: "outerwear", collection: "utility", material: "Stone / Black Panels", image: "look-tops.jpg",
-      blurb: "Cropped and built from panels. Remove the sleeves for a vest, add a hood, or cut it back to a top.",
-      options: [["Sleeves", ["Long", "Short", "Balloon", "Removed"]], ["Hood", ["None", "Black", "Olive", "Cream"]]],
-      changes: [["p-crop-jacket.jpg", "Base"], ["look-tops.jpg", "Add"], ["look-tees.jpg", "Transform"]] },
-    { id: "modular-sweatpant", name: "The Modular Sweatpant", price: 78000, cat: "bottoms", collection: "utility", material: "Black / Brushed Fleece", image: "look-sweat.jpg",
-      blurb: "Cargo panels, leg extensions and ankle options that change the pant from tapered to wide in a few zips.",
-      options: [["Panel", ["Olive", "Oxide", "Black"]], ["Ankle", ["Cuffed", "Straight"]], ["Leg", ["Tapered", "Wide"]]],
-      changes: [["p-core-sweat.jpg", "Base"], ["p-contrast-sweat.jpg", "Add"], ["look-sweat.jpg", "Transform"]] },
-    { id: "cargo-short", name: "The Cargo Short", price: 62000, cat: "bottoms", collection: "utility", material: "Black / Ripstop", image: "look-shorts.jpg",
-      blurb: "Detachable pockets, side panels and zip-off legs that make it a long pant again.",
-      options: [["Pockets", ["Black", "Olive", "Cream", "Oxide"]], ["Leg", ["Short", "Zip-on extension"]]],
-      changes: [["p-cargo-short.jpg", "Base"], ["p-utility-short.jpg", "Add"], ["look-shorts.jpg", "Transform"]] },
-    { id: "backpack", name: "The Backpack", price: 120000, cat: "bags", collection: "carry", material: "Black / Olive Canvas", image: "p-backpack.jpg", flat: true,
-      blurb: "Pouches, panels and straps move between every DOZI bag. Carry it as a backpack today and a tote tomorrow.",
-      options: [["Pouches", ["Two", "Four", "None"]], ["Front panel", ["Olive", "Black", "Cream"]]],
-      changes: [["p-backpack.jpg", "Base"], ["look-bags.jpg", "Add"], ["p-crossbody.jpg", "Transform"]] },
-    { id: "crossbody", name: "The Crossbody", price: 85000, cat: "bags", collection: "carry", material: "Black / Oxide Panel", image: "look-bags.jpg",
-      blurb: "Compact, with a swappable front panel and a strap that converts it to shoulder or sling.",
-      options: [["Front panel", ["Oxide", "Olive", "Black", "Cream"]], ["Strap", ["Crossbody", "Shoulder", "Sling"]]],
-      changes: [["p-crossbody.jpg", "Base"], ["detail-zip.jpg", "Add"], ["look-bags.jpg", "Transform"]] },
-    { id: "core-sneaker", name: "The Core Sneaker", price: 140000, cat: "footwear", collection: "footwear", material: "Stone / Olive Leather", image: "look-shoes.jpg",
-      blurb: "Side panels, heel modules, tongues and laces that change between street, utility and outdoor.",
-      options: [["Side panel", ["Olive", "Black", "Cream", "Oxide"]], ["Laces", ["Black", "Olive", "Cream"]], ["Heel", ["Support", "Aesthetic"]]],
-      changes: [["p-core-sneaker.jpg", "Base"], ["p-boot.jpg", "Add"], ["look-shoes.jpg", "Transform"]] },
-    { id: "high-top-boot", name: "The High-Top Boot", price: 175000, cat: "footwear", collection: "footwear", material: "Olive / Suede", image: "p-boot.jpg", flat: true,
-      blurb: "Extended support with two removable straps. Take the collar off and it is a low trail shoe.",
-      options: [["Straps", ["Two", "One", "None"]], ["Collar", ["High", "Low"]]],
-      changes: [["p-core-sneaker.jpg", "Base"], ["detail-snap.jpg", "Add"], ["p-boot.jpg", "Transform"]] },
-    { id: "heel", name: "The Modular Heel", price: 150000, cat: "footwear", collection: "footwear", material: "Burgundy / Black Leather", image: "look-heels.jpg",
-      blurb: "Front panels, ankle straps and heel modules that change a sandal into a statement or a boot.",
-      options: [["Front", ["Black", "Cream", "Burgundy", "Olive"]], ["Heel", ["Stiletto", "Block", "Sculpted"]], ["Ankle strap", ["None", "Leather", "Chain"]]],
-      changes: [["look-heels.jpg", "Base"], ["detail-snap.jpg", "Add"], ["look-heels.jpg", "Transform"]] },
-    { id: "fedora", name: "The Fedora", price: 70000, cat: "hats", collection: "hats", material: "Chocolate / Felt", image: "look-hats.jpg",
-      blurb: "Bands, pins and feathers that change it from boardroom to Sunday.",
-      options: [["Band", ["Black", "Burgundy", "Tan", "Tweed"]], ["Pin", ["None", "Leaf", "Crest", "Pearl"]], ["Accent", ["None", "Feather"]]],
-      changes: [["p-fedora.jpg", "Base"], ["detail-snap.jpg", "Add"], ["look-hats.jpg", "Transform"]] }
-  ];
+    { id: "the-polo", name: "The Polo", price: 68000, cat: "tops", collection: "utility", material: "Navy / Heavy Cotton Piqué", image: "studio/base/polo-short-navy-brass.jpg", flat: true, design: true,
+      blurb: "An oversized, heavyweight polo cut as a base. The collar and sleeves zip off, the side seams take panels, the chest takes a pocket and the hem loop takes a charm or a strap." }
+  ].concat(DOZI.systems.list.map(function (x) {
+    return { id: x.id, name: x.name, price: x.price, cat: x.cat, collection: x.collection, material: x.material, blurb: x.blurb,
+      image: "systems/" + x.id + "-" + x.colours[0] + "-1.jpg", hero: "systems/" + x.id + "-" + x.colours[0] + "-" + x.versions.length + ".jpg", flat: true, system: true };
+  }));
 
   var COLLECTIONS = [
-    { id: "denim", name: "Modular Denim", colour: "#2B3A5C", image: "lookbook/suit-04.jpg", line: "Tailoring that comes apart.", body: "Indigo suits, coats, dresses and bags with zip-off lengths, snap-on pockets and convertible hems." },
-    { id: "corporate", name: "Modular Corporate", colour: "#6B1F26", image: "campaign-burgundy-suits.jpg", line: "One outfit. Many expressions.", body: "Ties, cuffs, trouser attachments and charms change a shirt and trouser between the boardroom and the evening." },
-    { id: "utility", name: "Modular Utility", colour: "#4D4B31", image: "look-sweat.jpg", line: "One garment. Many versions.", body: "Jackets, tees, sweatpants and shorts with zip channels, snap rails and detachable panels." },
-    { id: "footwear", name: "Footwear", colour: "#8E3426", image: "look-shoes.jpg", line: "Walk. Detach. Attach.", body: "Sneakers, boots and heels with side panels, heel modules and swappable straps." },
-    { id: "carry", name: "Carry", colour: "#B8AEA0", image: "look-bags.jpg", line: "Carry it your way.", body: "Pouches and straps move from bag to bag, so a backpack becomes a tote or a sling." },
-    { id: "hats", name: "Hats", colour: "#4A3025", image: "look-hats.jpg", line: "Timeless materials. Modern people.", body: "Fedoras, berets and caps with bands, pins, feathers and veils you swap." }
+    { id: "utility", name: "Modular Utility", colour: "#3F3D2C", image: "systems/jacket-olive-5.jpg", line: "One garment. Many versions.", body: "The Polo, the Core Jacket, the Core Tee and the Baggy Trouser: zip channels, snap rails and parts that move between them." },
+    { id: "dresses", name: "Dresses", colour: "#6B1F26", image: "systems/dress-burgundy-2.jpg", line: "One dress. Many expressions.", body: "Navy, burgundy and washed denim dresses with zip-off skirts, changing necklines, cargo pockets and harnesses." },
+    { id: "denim", name: "Modular Denim", colour: "#22304F", image: "systems/suit-indigo-4.jpg", line: "Tailoring that comes apart.", body: "Indigo suits and coats with zip-off hems, snap-on vests and clip-on pocket rigs." },
+    { id: "footwear", name: "Footwear", colour: "#1F2B4D", image: "systems/heel-navy-3.jpg", line: "Walk. Detach. Attach.", body: "A pump that becomes a knee boot, a sneaker that becomes a utility boot: shafts, straps and pouches zip and buckle on." },
+    { id: "carry", name: "Carry", colour: "#22304F", image: "systems/bag-indigo-1.jpg", line: "Carry it your way.", body: "Pouches and straps move from bag to bag: backpack, messenger, chest rig, duffel, tote." },
+    { id: "corporate", name: "The Set", colour: "#1F2B4D", image: "systems/set-trouser-navy-1.jpg", line: "One trouser. Seven versions.", body: "The wide pleated trouser with a strap rail, D-rings, zip-off legs, contrast panels and cuffs." }
   ];
 
   /* ---------- Pricing for the designable polo (placeholders) ---------- */
@@ -222,7 +150,10 @@
     updateCount();
     open("bag");
   }
+  function isSystem(st) { return st && st.base && st.base !== "polo" && DOZI.systems.get(st.base); }
+  function anyPrice(st) { return isSystem(st) ? DOZI.systems.price(st) : designPrice(st); }
   function itemThumb(it) {
+    if (it.design && isSystem(it.design)) { var n = DOZI.systems.normalize(it.design); return '<div class="frame frame--flat"><img src="' + DOZI.systems.img(DOZI.systems.get(n.base), n.color, n.v) + '" alt=""></div>'; }
     if (it.design) return '<div class="frame frame--look">' + DOZI.look.html(it.design) + "</div>";
     return '<div class="frame' + (it.flat ? " frame--flat" : "") + '"><img src="' + IMG + it.image + '" alt=""></div>';
   }
@@ -252,7 +183,7 @@
     if (!list.length) { body.innerHTML = '<p class="empty">No saved designs yet.<br><em>Make one yours.</em></p>'; return; }
     body.innerHTML = list.map(function (d, i) {
       return '<div class="line-item">' + itemThumb({ design: d.state }) +
-        '<div><div class="caps">' + esc(d.name) + '</div><div class="caption" style="margin-top:4px"><span class="price">' + money(designPrice(d.state)) + '</span></div>' +
+        '<div><div class="caps">' + esc(d.name) + '</div><div class="caption" style="margin-top:4px"><span class="price">' + money(anyPrice(d.state)) + '</span></div>' +
         '<a class="link-arrow" style="margin-top:12px" href="design.html#' + encodeURIComponent(JSON.stringify(d.state)) + '">Open in studio</a></div>' +
         '<button class="remove" data-unsave="' + i + '">Remove</button></div>';
     }).join("");
@@ -313,7 +244,7 @@
   Object.assign(DOZI, {
     IMG: IMG, PRODUCTS: PRODUCTS, COLLECTIONS: COLLECTIONS, LABELS: LABELS, DESIGN_PRICES: DESIGN_PRICES,
     product: function (id) { return PRODUCTS.filter(function (p) { return p.id === id; })[0]; },
-    designPrice: designPrice, designSummary: designSummary,
+    designPrice: designPrice, designSummary: designSummary, anyPrice: anyPrice,
     money: money, esc: esc, load: load, save: save, mark: mark,
     addToBag: addToBag, toast: toast, open: open, reveals: reveals
   });

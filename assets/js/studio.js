@@ -28,8 +28,7 @@
   var OPTIONS = {
     base: [
       { v: "polo", label: "The Polo", img: LK.ROOT + "base/polo-short-navy-brass.jpg", note: DOZI.money(P.base) },
-      { v: "set", label: "The Set", img: "assets/img/campaign-oxide-pair.jpg", note: "Polo + trouser", soon: true }
-    ],
+    ].concat(DOZI.systems.list.map(function (x) { return { v: x.id, label: x.name, img: DOZI.systems.img(x), note: DOZI.money(x.price) }; })),
     fit: [
       { v: "oversized", label: "Oversized", note: "Boxy, dropped shoulder" },
       { v: "regular", label: "Regular", soon: true },
@@ -76,6 +75,9 @@
   var PART_STEP = { collar: "collar", sleeve: "sleeve", color: "color", pocket: "attach", panels: "attach", hem: "attach", hardware: "finish" };
   var TRAY_TITLE = { collar: "Swap the collar", sleeve: "Swap the sleeves", color: "Change the colour", pocket: "Chest attachment", panels: "Side panels", hem: "Hem loop", hardware: "Hardware" };
 
+  var SY = DOZI.systems;
+  var sys = null; // a photographed system ({base, color, v}); null while designing The Polo
+  var SYS_STEPS = [{ key: "base", label: "Base" }, { key: "scolor", label: "Colour" }, { key: "v", label: "Version" }];
   var state = initialState();
   var step = 0;
   var traying = null;
@@ -83,7 +85,9 @@
   function initialState() {
     var s = {};
     try { if (location.hash.length > 1) s = JSON.parse(decodeURIComponent(location.hash.slice(1))); } catch (e) { /* ignore a malformed link */ }
+    if (s.base && s.base !== "polo" && SY.get(s.base)) sys = SY.normalize(s);
     var q = new URLSearchParams(location.search);
+    if (q.get("base") && SY.get(q.get("base"))) sys = SY.normalize({ base: q.get("base"), color: q.get("color"), v: q.get("v") });
     if (q.get("color")) s.color = q.get("color");
     return LK.normalize(s);
   }
@@ -203,6 +207,87 @@
     els.look.querySelectorAll(".is-detached").forEach(function (l) { l.classList.remove("is-detached"); });
   }
 
+  /* ---------- photographed systems ---------- */
+  function sysObj() { return SY.get(sys.base); }
+  function sysSrc(st) { st = st || sys; return SY.img(SY.get(st.base), st.color, st.v); }
+  function buildSysStage() {
+    els.look.classList.remove("is-long", "is-lifted", "is-dim");
+    els.look.innerHTML = '<img class="look__base sys-img" data-base alt="" src="' + sysSrc() + '">' +
+      '<button class="hot hot--all" data-part="version" aria-label="Change this version"></button>';
+  }
+  // the current version lifts away and the chosen one clicks into place
+  function swapSys() {
+    var src = sysSrc(), token = ++swapToken;
+    LK.preload(src).then(function () {
+      if (token !== swapToken) return;
+      var old = els.look.querySelector("[data-base]");
+      var nu = document.createElement("img");
+      nu.className = "look__base sys-img is-in"; nu.alt = ""; nu.src = src; nu.setAttribute("data-base", "");
+      old.removeAttribute("data-base"); old.classList.add("is-out");
+      els.look.insertBefore(nu, els.look.querySelector(".hot"));
+      void nu.offsetWidth; nu.classList.remove("is-in");
+      setTimeout(function () { old.remove(); }, 600);
+    });
+  }
+  function sysTray() {
+    traying = "version";
+    var x = sysObj();
+    els.tray.innerHTML = '<div class="tray__head"><span class="caps">Change the version</span><button class="caps-sm" data-tray-close>Done</button></div>' +
+      '<div class="tray__items">' + x.versions.map(function (v, i) { return tile("v", { v: i, label: v[0], img: SY.img(x, sys.color, i), note: v[1] }, sys.v === i, "tray__item"); }).join("") + "</div>";
+    els.tray.classList.add("is-open");
+    els.tag.classList.remove("is-on");
+    els.look.classList.add("is-picking");
+  }
+  function sysStepValue(k) {
+    var x = sysObj();
+    if (k === "base") return x.name.replace(/^The /, "");
+    if (k === "scolor") return SY.COLOURS[sys.color].name;
+    return x.versions[sys.v][0];
+  }
+  function sysPanel() {
+    var x = sysObj(), st = SYS_STEPS[step], h = '<div><span class="caps muted">Step 0' + (step + 1) + " / 0" + SYS_STEPS.length + '</span><h2 style="margin-top:10px">' + st.label + "</h2></div>";
+    if (st.key === "base") h += group("Choose a base", "base");
+    else if (st.key === "scolor") h += '<div class="group"><span class="caps">Colour · ' + SY.COLOURS[sys.color].name + '</span><div class="tiles">' +
+      x.colours.map(function (c) { return tile("scolor", { v: c, label: SY.COLOURS[c].name, img: SY.img(x, c, sys.v) }, sys.color === c); }).join("") + "</div>" +
+      (x.colours.length < 2 ? '<span class="caps-sm muted">More colours are in sampling.</span>' : "") + "</div>";
+    else h += '<div class="group"><span class="caps">From base to fully built</span><div class="tiles">' +
+      x.versions.map(function (v, i) { return tile("v", { v: i, label: v[0], img: SY.img(x, sys.color, i), note: v[2] ? "+ " + DOZI.money(v[2]) : v[1] }, sys.v === i); }).join("") + "</div></div>";
+    h += '<div class="studio__nav"><button data-prev ' + (step === 0 ? "disabled" : "") + '>← Back</button><button data-next>' + (step === SYS_STEPS.length - 1 ? "Your design ↓" : "Next →") + "</button></div>";
+    h += '<div class="summary"><p class="your-design" style="margin:22px 0 10px">Your design</p><dl>' +
+      SY.summary(sys).map(function (r) { return "<dt>" + r[0] + "</dt><dd>" + DOZI.esc(r[1]) + "</dd>"; }).join("") + "</dl></div>" +
+      '<div class="studio__price"><span class="caps">Total</span><span style="font-size:18px">' + DOZI.money(SY.price(sys)) + "</span></div>" +
+      '<button class="btn btn--block" data-add>Add to bag</button>' +
+      '<div style="display:flex;justify-content:space-between"><button class="link-arrow" data-save>Save design</button><button class="link-arrow" data-share>Copy link</button></div>' +
+      '<span class="caps-sm muted">Made to order in Lagos · ships in 10–14 days</span>';
+    els.panel.innerHTML = h;
+  }
+  function sysSet(key, raw) {
+    if (traying) { traying = null; els.tray.classList.remove("is-open"); els.look.classList.remove("is-picking"); }
+    var next = Object.assign({}, sys);
+    if (key === "base") next = { base: raw, color: null, v: 0 };
+    else if (key === "scolor") next.color = raw;
+    else if (key === "v") next.v = +raw;
+    else return;
+    next = SY.normalize(next);
+    if (JSON.stringify(next) === JSON.stringify(sys)) return;
+    sys = next;
+    swapSys();
+    afterChange();
+  }
+  function currentState() { return sys || state; }
+  function afterChange() {
+    renderSteps(); renderPanel(); updateTitle();
+    history.replaceState(null, "", "#" + encodeURIComponent(JSON.stringify(currentState())));
+    DOZI.toast("Your design has changed.");
+  }
+  function switchBase(raw) {
+    closeTray(true);
+    if (raw === "polo") { if (!sys) return; sys = null; buildStage(); }
+    else if (!sys) { sys = SY.normalize({ base: raw }); buildSysStage(); }
+    else return sysSet("base", raw);
+    afterChange();
+  }
+
   /* ---------- tray (the component drawer, real photographs) ---------- */
   function tile(key, o, pressed, cls) {
     var inner = o.img ? '<span class="tile__img' + (o.swatch ? " tile__img--swatch" : "") + '"><img src="' + o.img + '" alt="" loading="lazy"></span>' : '<span class="tile__img tile__img--none">—</span>';
@@ -224,6 +309,8 @@
     if (!traying) return;
     traying = null;
     els.tray.classList.remove("is-open");
+    els.look.classList.remove("is-picking");
+    if (sys) return;
     if (!silent) reattach(); else reattach();
   }
 
@@ -239,18 +326,21 @@
       case "finish": return LK.HARDWARE[state.hardware].name;
     }
   }
+  function steps() { return sys ? SYS_STEPS : STEPS; }
   function renderSteps() {
-    els.steps.innerHTML = STEPS.map(function (s, i) {
-      return '<li class="' + (i === step ? "is-active" : "") + '"><button data-step="' + i + '"><span class="n">0' + (i + 1) + '</span><span class="k">' + s.label + '</span><span class="v">' + stepValue(s.key) + "</span></button></li>";
+    if (step >= steps().length) step = steps().length - 1;
+    els.steps.innerHTML = steps().map(function (s, i) {
+      return '<li class="' + (i === step ? "is-active" : "") + '"><button data-step="' + i + '"><span class="n">0' + (i + 1) + '</span><span class="k">' + s.label + '</span><span class="v">' + (sys ? sysStepValue(s.key) : stepValue(s.key)) + "</span></button></li>";
     }).join("");
   }
 
   /* ---------- right: options for the current step ---------- */
   function group(label, key) {
     return '<div class="group"><span class="caps">' + label + '</span><div class="tiles">' +
-      OPTIONS[key].map(function (o) { return tile(key, o, state[key] === o.v); }).join("") + "</div></div>";
+      OPTIONS[key].map(function (o) { return tile(key, o, key === "base" ? (sys ? sys.base : "polo") === o.v : state[key] === o.v); }).join("") + "</div></div>";
   }
   function renderPanel() {
+    if (sys) return sysPanel();
     var s = STEPS[step], h = '<div><span class="caps muted">Step 0' + (step + 1) + " / 0" + STEPS.length + '</span><h2 style="margin-top:10px">' + s.label + "</h2></div>";
     if (s.key === "base") h += group("Choose a base", "base");
     else if (s.key === "fit") h += group("Fit", "fit");
@@ -274,6 +364,8 @@
   var KEY_PART = { collar: "collar", sleeve: "sleeve", color: "color", hardware: "hardware", pocket: "pocket", panels: "panels", hem: "hem" };
   function parseVal(key, v) { return key === "pocket" || key === "panels" ? v === "true" : v; }
   function set(key, raw) {
+    if (key === "base") return switchBase(raw);
+    if (sys) return sysSet(key, raw);
     var v = parseVal(key, raw);
     if (!(key in KEY_PART) || state[key] === v) { if (traying) closeTray(); return; }
     var prevBase = LK.baseSrc(state);
@@ -292,6 +384,7 @@
     DOZI.toast("Your design has changed.");
   }
   function updateTitle() {
+    if (sys) { els.title.textContent = sysObj().name + " — " + SY.COLOURS[sys.color].name; els.look.setAttribute("aria-label", sysObj().name + ", " + sysObj().versions[sys.v][0]); return; }
     els.title.textContent = "The Polo — " + LK.COLORS[state.color].name;
     els.look.setAttribute("aria-label", LK.describe(state));
   }
@@ -302,31 +395,36 @@
     if ((t = e.target.closest("[data-set]"))) { if (!t.disabled) set(t.getAttribute("data-set"), t.getAttribute("data-val")); return; }
     if ((t = e.target.closest("[data-step]"))) { step = +t.getAttribute("data-step"); closeTray(); renderSteps(); renderPanel(); return; }
     if (e.target.closest("[data-next]")) {
-      if (step < STEPS.length - 1) { step++; renderSteps(); renderPanel(); }
+      if (step < steps().length - 1) { step++; renderSteps(); renderPanel(); }
       else els.panel.querySelector(".summary").scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
     if (e.target.closest("[data-prev]")) { if (step > 0) { step--; renderSteps(); renderPanel(); } return; }
     if (e.target.closest("[data-tray-close]")) { closeTray(); return; }
+    if (e.target.closest("[data-add]") && sys) {
+      DOZI.addToBag({ name: sysObj().name + " — " + sysObj().versions[sys.v][0], price: SY.price(sys), design: Object.assign({}, sys), spec: SY.summary(sys) });
+      return;
+    }
     if (e.target.closest("[data-add]")) {
       DOZI.addToBag({ name: "The Polo — Your Design", price: DOZI.designPrice(state), design: JSON.parse(JSON.stringify(state)), spec: DOZI.designSummary(state) });
       return;
     }
     if (e.target.closest("[data-save]")) {
       var list = DOZI.load("saved", []);
-      list.unshift({ name: "The Polo — " + LK.COLORS[state.color].name, state: JSON.parse(JSON.stringify(state)) });
+      list.unshift(sys ? { name: sysObj().name + " — " + sysObj().versions[sys.v][0], state: Object.assign({}, sys) } : { name: "The Polo — " + LK.COLORS[state.color].name, state: JSON.parse(JSON.stringify(state)) });
       DOZI.save("saved", list.slice(0, 24));
       DOZI.toast("Design saved");
       return;
     }
     if (e.target.closest("[data-share]")) {
-      var url = location.href.split("#")[0] + "#" + encodeURIComponent(JSON.stringify(state));
+      var url = location.href.split("#")[0] + "#" + encodeURIComponent(JSON.stringify(currentState()));
       if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { DOZI.toast("Link copied"); }, function () { DOZI.toast("Copy the address bar to share"); });
       return;
     }
     var hot = e.target.closest(".hot");
     if (hot) {
       var p = hot.getAttribute("data-part");
+      if (sys) { if (traying) closeTray(); else { sysTray(); step = 2; renderSteps(); renderPanel(); } return; }
       if (traying === p) { closeTray(); return; }
       openTray(p);
       var idx = STEPS.map(function (s) { return s.key; }).indexOf(PART_STEP[p]);
@@ -341,7 +439,7 @@
     var hot = e.target.closest && e.target.closest(".hot");
     if (!hot || traying) { els.tag.classList.remove("is-on"); return; }
     var sr = els.stage.getBoundingClientRect();
-    els.tag.textContent = HOT[+hot.getAttribute("data-hot")].label;
+    els.tag.textContent = sys ? "Change this" : HOT[+hot.getAttribute("data-hot")].label;
     els.tag.style.left = Math.min(e.clientX - sr.left + 16, sr.width - 240) + "px";
     els.tag.style.top = (e.clientY - sr.top - 8) + "px";
     els.tag.classList.add("is-on");
@@ -349,7 +447,7 @@
   els.stage.addEventListener("mouseleave", function () { els.tag.classList.remove("is-on"); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeTray(); });
 
-  buildStage();
+  if (sys) buildSysStage(); else buildStage();
   renderSteps(); renderPanel(); updateTitle();
   // warm the cache for the photographs one click away
   ["crew", "polo"].forEach(function (c) { ["short", "long"].forEach(function (sl) { LK.preload(LK.baseSrc(Object.assign({}, state, { collar: c, sleeve: sl }))); }); });

@@ -166,7 +166,6 @@ LOOK = {
     'suit': ('lineup-denim-tailoring.jpg', [(17, 270), (286, 541), (557, 821), (838, 1090), (1109, 1364)], (50, 718)),
     'denim': ('lineup-denim-oversized.jpg', [(8, 289), (289, 560), (560, 823), (823, 1093), (1093, 1370)], (20, 750)),
     'dress': ('lineup-navy-dresses.jpg', [(22, 290), (305, 562), (562, 830), (845, 1095), (1112, 1376)], (22, 732)),
-    'polo-model': ('board-polo-on-model.jpg', [(25, 272), (289, 544), (562, 816), (834, 1088), (1106, 1352)], (118, 746)),
 }
 LINEUPS = {'bags': 'lineup-denim-bags.jpg', 'denim-dresses': 'lineup-denim-dresses.jpg', 'denim-tailoring': 'lineup-denim-tailoring.jpg', 'denim-oversized': 'lineup-denim-oversized.jpg', 'navy-dresses': 'lineup-navy-dresses.jpg'}
 def lookbook():

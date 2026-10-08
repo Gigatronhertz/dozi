@@ -603,3 +603,35 @@ a:hover > .frame--look img, a.frame--look:hover img { transform: none; }
 .sw--photo { background-size: cover; background-position: center; }
 .pdp__media .live .look { width: 100%; }
 .transform-row .frame--look { aspect-ratio: 1122 / 1402; max-height: 460px; margin: 0 auto; }
+
+/* photographed systems on the studio stage */
+.sys-img { transition: transform .6s cubic-bezier(.3, 1.35, .45, 1), opacity .45s var(--ease), filter .45s; }
+.sys-img.is-out { opacity: 0; transform: translateY(-5%) scale(.97); }
+.sys-img.is-in { opacity: 0; transform: translateY(6%) scale(1.03); transition: none; }
+.is-picking .sys-img { transform: translateY(-3%) scale(.98); opacity: .55; }
+.hot--all { inset: 4% 8% 4% 8%; }
+.tile__note { overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.studio__panel .tiles { max-height: 64vh; overflow-y: auto; }
+
+/* ---------- Still-life hero (no models: the garments carry it) ---------- */
+.hero-still { position: relative; height: calc(100svh - var(--nav-h)); min-height: 560px; overflow: hidden; background: var(--bone); border-bottom: 1px solid var(--line); }
+.hero-still__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 78%; animation: heroIn 2s var(--ease) both; }
+.hero-still__type { position: absolute; z-index: 2; top: clamp(28px, 6vh, 72px); left: var(--gutter); }
+.hero-still__word { font-weight: 600; letter-spacing: .12em; font-size: clamp(64px, 10vw, 168px); line-height: .82; margin: 18px 0 0; }
+.hero-still__tag { margin: 18px 0 28px; font-size: 12px; letter-spacing: .42em; }
+.hero-still__steps { position: absolute; z-index: 2; left: 2%; right: 2%; bottom: 18px; display: grid; grid-template-columns: repeat(5, 1fr); text-align: center; color: var(--stone-2); }
+@media (max-width: 800px) {
+  .hero-still__img { object-position: 92% 85%; }
+  .hero-still__steps { display: none; }
+}
+.campaign--still { color: var(--ink); background: var(--bone); height: auto; min-height: 0; aspect-ratio: 1376 / 768; }
+.campaign--still::after { display: none; }
+.campaign--still .display { color: var(--ink); }
+.campaign--still .campaign__type { top: clamp(20px, 4vw, 56px); bottom: auto; }
+.campaign--still .campaign__chapter { top: auto; bottom: 16px; color: var(--stone-2); }
+@media (max-width: 800px) { .campaign--still { aspect-ratio: auto; height: 80svh; } .campaign--still img { object-position: 30% 70%; } }
+.campaign--still { aspect-ratio: auto; height: auto; display: flex; flex-direction: column; }
+.campaign--still img { position: relative; inset: auto; height: auto; aspect-ratio: 1376 / 768; }
+.campaign--still .campaign__type { position: static; padding: clamp(24px, 4vw, 56px) var(--gutter) clamp(48px, 6vw, 96px); }
+.campaign--still .campaign__chapter { position: absolute; top: 16px; bottom: auto; }
+@media (max-width: 800px) { .campaign--still { height: auto; } .campaign--still img { aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 60%; } }

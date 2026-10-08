@@ -24,13 +24,14 @@
   <div data-collections></div>
 </main>
 <script src="assets/js/look.js"></script>
+<script src="assets/js/systems.js"></script>
 <script src="assets/js/site.js"></script>
 <script>
 (function () {
   var html = DOZI.COLLECTIONS.map(function (c, i) {
     var items = DOZI.PRODUCTS.filter(function (p) { return p.collection === c.id; }).slice(0, 3);
     return '<section class="coll' + (i % 2 ? " coll--flip" : "") + '" id="' + c.id + '">' +
-      '<div class="coll__img reveal"><div class="frame"><img loading="lazy" src="' + DOZI.IMG + c.image + '" alt="' + DOZI.esc(c.name) + ' campaign" style="object-position:50% 25%"></div></div>' +
+      '<div class="coll__img reveal"><div class="frame frame--flat"><img loading="lazy" src="' + DOZI.IMG + c.image + '" alt="' + DOZI.esc(c.name) + '"></div></div>' +
       '<div class="coll__txt reveal"><span class="caps muted"><i class="swatch" style="display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:10px;background:' + c.colour + '"></i>Chapter 0' + (i + 1) + "</span>" +
       '<h2 class="display">' + DOZI.esc(c.name) + '</h2><p class="serif" style="font-size:24px;margin:0 0 14px"><em>' + DOZI.esc(c.line) + '</em></p><p class="lede">' + DOZI.esc(c.body) + "</p>" +
       '<div class="coll__strip">' + items.map(function (p) { return '<a href="product.html?id=' + p.id + '" class="frame' + (p.flat ? " frame--flat" : "") + '" title="' + DOZI.esc(p.name) + '"><img loading="lazy" src="' + DOZI.IMG + p.image + '" alt="' + DOZI.esc(p.name) + '"></a>'; }).join("") + "</div>" +

@@ -16,28 +16,16 @@
 
 <main>
 
-  <!-- 01 — Campaign hero: a photograph, not a banner -->
-  <section class="hero">
-    <aside class="hero__side">
-      <div>
-        <span class="caps muted">Chapter 01 — Navy</span>
-        <p class="serif" style="font-size:28px;line-height:1.15;margin:22px 0 0;max-width:12ch">One base. Worn by one person. Designed by them.</p>
-      </div>
-      <div class="verbs caps">
-        <span>Detach.</span><span>Attach.</span><span>Swap.</span><span>Adapt.</span><span>Express.</span>
-      </div>
-      <span class="caps-sm muted">The Polo · The Wide Trouser · Leather Carry</span>
-    </aside>
-    <div class="hero__photo">
-      <img src="assets/img/campaign-navy-polo.jpg" alt="A man walks across a stone plaza in an oversized navy polo and wide navy trousers, a brown leather bag over his shoulder." fetchpriority="high">
-      <div class="hero__type">
-        <div>
-          <h1 class="hero__word">DOZI</h1>
-          <p class="hero__tag">DESIGN — MADE FOR YOU.</p>
-        </div>
-        <a class="link-arrow" href="design.html">Explore the design <span aria-hidden="true">→</span></a>
-      </div>
+  <!-- 01 — Hero: one base, many versions -->
+  <section class="hero-still">
+    <img class="hero-still__img" src="assets/img/hero/heels.jpg" alt="The DOZI Modular Heel in navy, from a pump to a utility knee boot, in five versions." fetchpriority="high">
+    <div class="hero-still__type">
+      <span class="caps muted">One base — five versions</span>
+      <h1 class="hero-still__word">DOZI</h1>
+      <p class="hero-still__tag">DESIGN — MADE FOR YOU.</p>
+      <a class="link-arrow" href="design.html">Explore the design <span aria-hidden="true">→</span></a>
     </div>
+    <div class="hero-still__steps caps-sm"><span>Base</span><span>Add</span><span>Build</span><span>Transform</span><span>Yours</span></div>
   </section>
 
   <!-- 02 — Manifesto -->
@@ -67,29 +55,29 @@
       <a class="link-arrow" href="shop.html">Shop all <span aria-hidden="true">→</span></a>
     </div>
     <div class="ed-grid">
-      <a class="ed-span-7 reveal" href="product.html?id=wide-trouser">
-        <div class="frame ratio-portrait"><img loading="lazy" src="assets/img/look-corporate.jpg" alt="A woman in a white shirt, brown detachable tie and wide chocolate trousers with a leather charm at the waist." style="object-position:50% 25%"></div>
-        <div class="caption"><span><span class="name">The Wide Trouser</span><span class="sub">Chocolate / Wool Twill</span></span><span class="price">₦92,000</span></div>
+      <a class="ed-span-7 reveal" href="product.html?id=set-trouser">
+        <div class="frame frame--flat ratio-portrait"><img loading="lazy" src="assets/img/systems/set-trouser-navy-2.jpg" alt="The Set Trouser in navy with a snap-on utility pouch."></div>
+        <div class="caption"><span><span class="name">The Set Trouser</span><span class="sub">Navy / Wool-Cotton Twill</span></span><span class="price">₦92,000</span></div>
       </a>
       <a class="ed-span-4 ed-right reveal ed-offset" href="product.html?id=the-polo">
         <div class="frame frame--look ratio-tall" data-home-polo></div>
         <div class="caption"><span><span class="name">The Polo</span><span class="sub tag-design">Design it</span></span><span class="price">from ₦68,000</span></div>
       </a>
-      <a class="ed-span-4 reveal" href="product.html?id=core-jacket">
-        <div class="frame frame--flat ratio-tall"><img loading="lazy" src="assets/img/p-core-jacket.jpg" alt="The Core Jacket, black, with detachable sleeves and pockets."></div>
-        <div class="caption"><span><span class="name">The Core Jacket</span><span class="sub">Black / Waxed Cotton</span></span><span class="price">₦185,000</span></div>
+      <a class="ed-span-4 reveal" href="product.html?id=jacket">
+        <div class="frame frame--flat ratio-tall"><img loading="lazy" src="assets/img/systems/jacket-olive-2.jpg" alt="The Core Jacket with its zip-on hood."></div>
+        <div class="caption"><span><span class="name">The Core Jacket</span><span class="sub">Waxed Cotton / Brass</span></span><span class="price">₦185,000</span></div>
       </a>
-      <a class="ed-span-8 reveal" href="collections.html#corporate">
-        <div class="frame ratio-wide"><img loading="lazy" src="assets/img/campaign-burgundy-suits.jpg" alt="Two people in matching burgundy suits with wide trousers stand before stone columns." style="object-position:50% 30%"></div>
-        <div class="caption"><span><span class="name">Modular Corporate</span><span class="sub">Chapter 03 — Burgundy</span></span><span class="price">Campaign</span></div>
+      <a class="ed-span-8 reveal" href="product.html?id=two-piece">
+        <div class="frame ratio-wide"><img loading="lazy" src="assets/img/hero/burgundy-two-piece.jpg" alt="The Two-Piece in burgundy, five versions from zip set to harness."></div>
+        <div class="caption"><span><span class="name">The Two-Piece</span><span class="sub">Chapter 02 — Burgundy</span></span><span class="price">Five versions</span></div>
       </a>
     </div>
   </section>
 
   <!-- 05 — Campaign: colour arrives through the clothes -->
-  <section class="campaign">
-    <img loading="lazy" src="assets/img/campaign-oxide-pair.jpg" alt="Two people in oxide red wide trousers; one in a red jacket and tie, one in a cream shirt with a red leather bag." style="object-position:50% 35%">
-    <div class="campaign__chapter caps"><span>Chapter 02 — Oxide</span><span>DOZI</span></div>
+  <section class="campaign campaign--still">
+    <img loading="lazy" src="assets/img/hero/burgundy-dresses.jpg" alt="The Utility Dress in burgundy, five versions from off-shoulder to harness.">
+    <div class="campaign__chapter caps"><span>Chapter 02 — Burgundy</span><span>DOZI</span></div>
     <div class="campaign__type">
       <h2 class="display">One base.<br><em>Many expressions.</em></h2>
       <span class="caps">The DOZI Design — Made for you.</span>
@@ -117,16 +105,17 @@
       <a class="link-arrow" href="collections.html">All collections <span aria-hidden="true">→</span></a>
     </div>
     <div class="chapters">
-      <a class="chapter reveal" href="product.html?id=the-polo"><div class="frame"><img loading="lazy" src="assets/img/campaign-navy-polo.jpg" alt="" style="object-position:50% 20%"></div><div class="caption"><span class="name"><i class="swatch" style="background:#1F2B4D"></i>01 Navy</span></div></a>
-      <a class="chapter reveal" href="product.html?id=the-set"><div class="frame"><img loading="lazy" src="assets/img/campaign-oxide-pair.jpg" alt="" style="object-position:72% 30%"></div><div class="caption"><span class="name"><i class="swatch" style="background:#8E3426"></i>02 Oxide</span></div></a>
-      <a class="chapter reveal" href="collections.html#corporate"><div class="frame"><img loading="lazy" src="assets/img/campaign-burgundy-suits.jpg" alt="" style="object-position:28% 30%"></div><div class="caption"><span class="name"><i class="swatch" style="background:#6B1F26"></i>03 Burgundy</span></div></a>
-      <a class="chapter reveal" href="collections.html#utility"><div class="frame"><img loading="lazy" src="assets/img/look-sweat.jpg" alt="" style="object-position:50% 30%"></div><div class="caption"><span class="name"><i class="swatch" style="background:#4D4B31"></i>04 Deep Olive</span></div></a>
+      <a class="chapter reveal" href="product.html?id=the-polo"><div class="frame frame--flat"><img loading="lazy" src="assets/img/studio/base/polo-short-navy-brass.jpg" alt="The Polo in navy."></div><div class="caption"><span class="name"><i class="swatch" style="background:#1F2B4D"></i>01 Navy</span></div></a>
+      <a class="chapter reveal" href="product.html?id=dress"><div class="frame frame--flat"><img loading="lazy" src="assets/img/systems/dress-burgundy-1.jpg" alt="The Utility Dress in burgundy."></div><div class="caption"><span class="name"><i class="swatch" style="background:#6B1F26"></i>02 Burgundy</span></div></a>
+      <a class="chapter reveal" href="product.html?id=suit"><div class="frame frame--flat"><img loading="lazy" src="assets/img/systems/suit-indigo-4.jpg" alt="The Denim Suit, double-breasted."></div><div class="caption"><span class="name"><i class="swatch" style="background:#22304F"></i>03 Indigo</span></div></a>
+      <a class="chapter reveal" href="product.html?id=jacket"><div class="frame frame--flat"><img loading="lazy" src="assets/img/systems/jacket-olive-5.jpg" alt="The Core Jacket, full custom."></div><div class="caption"><span class="name"><i class="swatch" style="background:#3F3D2C"></i>04 Olive</span></div></a>
     </div>
   </section>
 
 </main>
 
 <script src="assets/js/look.js"></script>
+<script src="assets/js/systems.js"></script>
 <script src="assets/js/site.js"></script>
 <script>
   (function () {

@@ -25,6 +25,7 @@
   <div class="ed-grid shop-grid section--tight" data-grid></div>
 </main>
 <script src="assets/js/look.js"></script>
+<script src="assets/js/systems.js"></script>
 <script src="assets/js/site.js"></script>
 <script>
 (function () {
@@ -37,8 +38,8 @@
     { span: 3, ratio: "3 / 4" }, { span: 3, ratio: "3 / 4" }, { span: 6, ratio: "4 / 5" }
   ];
   var CAMPAIGNS = [
-    { at: 2, img: "campaign-oxide-pair.jpg", title: "Chapter 02 — Oxide", sub: "One base. Many expressions.", href: "product.html?id=the-set", pos: "50% 30%" },
-    { at: 9, img: "campaign-burgundy-suits.jpg", title: "Chapter 03 — Burgundy", sub: "Modular Corporate", href: "collections.html#corporate", pos: "50% 30%" }
+    { at: 2, img: "hero/navy-trousers.jpg", title: "The Baggy Trouser", sub: "One base. Five versions.", href: "design.html?base=baggy-trouser", pos: "50% 55%" },
+    { at: 9, img: "hero/burgundy-dresses.jpg", title: "Chapter 02 — Burgundy", sub: "One dress. Many expressions.", href: "design.html?base=dress&color=burgundy", pos: "50% 50%" }
   ];
   var grid = document.querySelector("[data-grid]"), filters = document.querySelector("[data-filters]");
 
@@ -52,7 +53,7 @@
       '<div class="caption"><span><span class="name">' + DOZI.esc(p.name) + '</span><span class="sub' + (p.design ? " tag-design" : "") + '">' + (p.design ? "Design it" : DOZI.esc(p.material)) + '</span></span><span class="price">' + (p.design ? "from " : "") + DOZI.money(p.price) + "</span></div></a>";
   }
   function campaign(c) {
-    return '<a class="reveal ed-span-12" href="' + c.href + '"><div class="frame" style="aspect-ratio:21/9"><img loading="lazy" src="' + DOZI.IMG + c.img + '" alt="" style="object-position:' + c.pos + '"></div>' +
+    return '<a class="reveal ed-span-12" href="' + c.href + '"><div class="frame" style="aspect-ratio:1376/768"><img loading="lazy" src="' + DOZI.IMG + c.img + '" alt="" style="object-position:' + c.pos + '"></div>' +
       '<div class="caption"><span><span class="name">' + c.title + '</span><span class="sub">' + c.sub + "</span></span><span class=\"price\">Campaign</span></div></a>";
   }
   function render(cat) {
