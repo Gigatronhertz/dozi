@@ -5,7 +5,7 @@ import React from 'react';
  * teeth separate in a V behind the slider, the two fabric flaps part,
  * and the section underneath is revealed at its natural height.
  */
-export function Zipper({ label = 'Unzip', title, hint = 'Pull the zip to open', coverHeight = 220, fabric = 'var(--fabric-denim-dark)', compact = false, defaultOpen = false, autoOpen = false, onOpen, pitch = 9, children, style }) {
+export function Zipper({ label = 'Unzip', title, hint = 'Pull the zip to open', coverHeight = 220, fabric = 'var(--fabric-denim-dark)', compact = false, defaultOpen = false, autoOpen = false, autoOnMount = false, onOpen, pitch = 9, children, style }) {
   const wrap = React.useRef(null);
   const cover = React.useRef(null);
   const inner = React.useRef(null);
@@ -83,8 +83,10 @@ export function Zipper({ label = 'Unzip', title, hint = 'Pull the zip to open', 
   React.useEffect(() => {
     if (!autoOpen || open || !w || !wrap.current) return;
     let t;
+    const delay = typeof autoOpen === 'number' ? autoOpen : 400;
+    if (autoOnMount) { t = setTimeout(() => { setTouched(true); animateTo(w + run, finish); }, delay); return () => clearTimeout(t); }
     const io = new IntersectionObserver(es => {
-      if (es.some(e => e.isIntersecting)) { io.disconnect(); t = setTimeout(() => { setTouched(true); animateTo(w + run, finish); }, typeof autoOpen === 'number' ? autoOpen : 400); }
+      if (es.some(e => e.isIntersecting)) { io.disconnect(); t = setTimeout(() => { setTouched(true); animateTo(w + run, finish); }, delay); }
     }, { threshold: 0.6 });
     io.observe(wrap.current);
     return () => { io.disconnect(); clearTimeout(t); };

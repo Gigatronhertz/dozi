@@ -27,10 +27,10 @@ function Product({ id, addToBag, go, toast }) {
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 440px), 1fr))', color: 'var(--bone-100)', background: 'var(--fabric-denim)' }}>
       <div style={{ background: 'var(--fabric-denim-washed)', padding: 'var(--space-7) var(--gutter)', display: 'grid', gap: 'var(--space-5)', alignContent: 'start' }}>
         <Stitched surface="bone" padding={18} double rivets style={{ display: 'grid' }}>
-          {<div style={{ aspectRatio: '5 / 4', background: 'var(--bone-100)', display: 'grid', placeItems: 'center', overflow: 'hidden' }}>
-                {s ? <img key={image} src={image} alt={p.name + ', ' + s.versions[st.v][0]} style={{ height: '100%', width: 'auto', animation: 'dz-rise 520ms var(--ease-out) both' }} />
-                  : <PoloLook state={st} animate style={{ height: '100%', width: 'auto' }} />}
-              </div>}
+          <div style={{ position: 'relative', aspectRatio: '5 / 4', background: 'var(--bone-100)', overflow: 'hidden' }}>
+            {s ? <img key={image} src={image} alt={p.name + ', ' + s.versions[st.v][0]} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', animation: 'dz-rise 520ms var(--ease-out) both' }} />
+              : <div style={{ position: 'absolute', inset: 0, display: 'flex', justifyContent: 'center' }}><PoloLook state={st} animate style={{ height: '100%', width: 'auto' }} /></div>}
+          </div>
         </Stitched>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
           {(s ? s.versions.map((v, i) => [SYS.img(s, st.color, i), () => change({ v: i }), st.v === i, v[0]])
@@ -70,7 +70,7 @@ function Product({ id, addToBag, go, toast }) {
           {[['How the parts attach', 'Every DOZI part fixes with one of three systems: the modular snap, the DOZI zip channel or the strap rail. Parts from one piece fit every other piece that shares the system.'],
             ['Fabric & care', 'Cold wash with every part removed. Hang to dry. Leather and brass are wiped clean, never washed.'],
             ['Delivery & returns', 'Made to order in Lagos and shipped in 10–14 days. Parts can be added to your piece later.']].map(([t, body], i) => (
-            <Zipper key={t} compact coverHeight={64} label={t} autoOpen={500 + i * 450}>
+            <Zipper key={t} compact coverHeight={64} label={t} autoOpen={700 + i * 500} autoOnMount>
               <div style={{ background: 'var(--fabric-denim-deep)', padding: '20px 18px', minHeight: 64, boxSizing: 'border-box', font: 'var(--text-body-s)', color: 'var(--text-on-denim-muted)' }}>{body}</div>
             </Zipper>
           ))}
