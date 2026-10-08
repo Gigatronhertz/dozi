@@ -93,6 +93,17 @@ def build(system, colour, src, region, n, use_sr):
     pieces = []
     for i in range(n):
         sl = m[:, cuts[i]:cuts[i + 1]]
+        # keep only the main piece in this slice: neighbours that spill in are dropped
+        blob = cv2.dilate(sl, np.ones((9, 9), np.uint8))
+        n_, lab, st, _ = cv2.connectedComponentsWithStats(blob)
+        if n_ > 1:
+            big = 1 + int(np.argmax(st[1:, cv2.CC_STAT_AREA]))
+            keep = (lab == big) | ((st[lab, cv2.CC_STAT_AREA] > st[big, cv2.CC_STAT_AREA] * .25) & (lab > 0) & (np.abs(st[lab, cv2.CC_STAT_LEFT] + st[lab, cv2.CC_STAT_WIDTH] / 2 - sl.shape[1] / 2) < sl.shape[1] * .3))
+            stray = (blob > 0) & ~keep
+            if stray.any():
+                ax = a[:, cuts[i]:cuts[i + 1]]
+                ax[cv2.dilate(stray.astype(np.uint8), np.ones((7, 7), np.uint8)) > 0] = BONE.astype(np.uint8)
+            sl = (sl * keep).astype(np.uint8)
         ys, xs = np.where(sl > 0)
         # drop thin specks: keep the rows/cols with real mass
         bx0, bx1 = cuts[i] + xs.min(), cuts[i] + xs.max() + 1
@@ -102,8 +113,8 @@ def build(system, colour, src, region, n, use_sr):
     s = min(FILL * CH / maxh, .9 * CW / maxw)
     meta = []
     for i, (bx0, by0, bx1, by1, c0, c1) in enumerate(pieces):
-        if system in INDEPENDENT:
-            s = min(INDEPENDENT[system] * CH / max(by1 - by0, (bx1 - bx0) * .55), .6 * CW / (bx1 - bx0))
+        # every piece is centred and fills its frame, so it reads clearly in cards and the studio
+        s = min(.84 * CH / (by1 - by0), .84 * CW / (bx1 - bx0))
         # generous crop around the piece, inside its own slice, so shadows come along
         mx = int((bx1 - bx0) * .12) + 6; my = int((by1 - by0) * .06) + 6
         cx0, cx1 = max(c0, bx0 - mx), min(c1, bx1 + mx)
@@ -122,7 +133,7 @@ def build(system, colour, src, region, n, use_sr):
         al = np.outer(ramp(th), ramp(tw))
         canvas = np.tile(BONE, (CH, CW, 1))
         px = round(CW / 2 - ((bx0 + bx1) / 2 - cx0) * s)
-        py = round(CH * FLOOR - (by1 - cy0) * s)
+        py = round(CH / 2 - ((by0 + by1) / 2 - cy0) * s)
         X0, Y0 = max(0, px), max(0, py)
         X1, Y1 = min(CW, px + tw), min(CH, py + th)
         sub = crop[Y0 - py:Y1 - py, X0 - px:X1 - px].astype(np.float32)

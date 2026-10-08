@@ -8,8 +8,7 @@ function Product({ id, addToBag, go, toast }) {
   React.useEffect(() => { setSt(s ? SYS.normalize({ base: s.id }) : LK.normalize({})); setView(-1); }, [id]);
   const change = patch => { setSt(x => s ? SYS.normalize({ ...x, ...patch }) : LK.normalize({ ...x, ...patch })); setView(-1); toast('Your design has changed.'); };
   const total = s ? SYS.price(st) : window.DOZI.designPrice(st);
-  const details = [D.img.zipSystem, D.img.pocket, D.img.signature, D.img.snap];
-
+  
   const colourOpts = s ? s.colours.map(c => ({ value: c, label: SYS.COLOURS[c].name, color: D.swatch[c] }))
     : Object.keys(LK.COLORS).map(c => ({ value: c, label: LK.COLORS[c].name, color: LK.COLORS[c].hex }));
   const P = window.DOZI.DESIGN_PRICES;
@@ -28,16 +27,15 @@ function Product({ id, addToBag, go, toast }) {
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 440px), 1fr))', color: 'var(--bone-100)', background: 'var(--fabric-denim)' }}>
       <div style={{ background: 'var(--fabric-denim-washed)', padding: 'var(--space-7) var(--gutter)', display: 'grid', gap: 'var(--space-5)', alignContent: 'start' }}>
         <Stitched surface="bone" padding={18} double rivets style={{ display: 'grid' }}>
-          {view >= 0
-            ? <div style={{ aspectRatio: '5 / 4', background: 'var(--bone-200) url(' + details[view] + ') center/cover no-repeat' }} />
-            : <div style={{ aspectRatio: '5 / 4', background: 'var(--bone-100)', display: 'grid', placeItems: 'center', overflow: 'hidden' }}>
+          {<div style={{ aspectRatio: '5 / 4', background: 'var(--bone-100)', display: 'grid', placeItems: 'center', overflow: 'hidden' }}>
                 {s ? <img key={image} src={image} alt={p.name + ', ' + s.versions[st.v][0]} style={{ height: '100%', width: 'auto', animation: 'dz-rise 520ms var(--ease-out) both' }} />
                   : <PoloLook state={st} animate style={{ height: '100%', width: 'auto' }} />}
               </div>}
         </Stitched>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-          {(s ? s.versions.map((v, i) => [SYS.img(s, st.color, i), () => change({ v: i }), view < 0 && st.v === i, v[0]]) : [[LK.baseSrc(st), () => setView(-1), view < 0, 'Your design']])
-            .concat(details.map((d, i) => [d, () => setView(i), view === i, 'Detail ' + (i + 1)]))
+          {(s ? s.versions.map((v, i) => [SYS.img(s, st.color, i), () => change({ v: i }), st.v === i, v[0]])
+              : [['polo', 'short', 'Polo collar, short'], ['polo', 'long', 'Polo collar, long'], ['crew', 'short', 'Crew neck, short'], ['crew', 'long', 'Crew neck, long']]
+                .map(([c, sl, l]) => [LK.baseSrc({ ...st, collar: c, sleeve: sl }), () => change({ collar: c, sleeve: sl }), st.collar === c && st.sleeve === sl, l]))
             .map(([g, fn, on, label], i) => (
               <button key={i} onClick={fn} title={label} aria-label={label} style={{ width: 76, height: 76, padding: 0, border: 0, cursor: 'pointer', background: 'var(--bone-100) url(' + g + ') center/cover', outline: on ? '1.5px dashed var(--thread)' : '1px solid rgba(243,239,231,.25)', outlineOffset: 3 }} />
             ))}
@@ -71,8 +69,8 @@ function Product({ id, addToBag, go, toast }) {
         <div style={{ display: 'grid', gap: 2 }}>
           {[['How the parts attach', 'Every DOZI part fixes with one of three systems: the modular snap, the DOZI zip channel or the strap rail. Parts from one piece fit every other piece that shares the system.'],
             ['Fabric & care', 'Cold wash with every part removed. Hang to dry. Leather and brass are wiped clean, never washed.'],
-            ['Delivery & returns', 'Made to order in Lagos and shipped in 10–14 days. Parts can be added to your piece later.']].map(([t, body]) => (
-            <Zipper key={t} compact coverHeight={64} label={t}>
+            ['Delivery & returns', 'Made to order in Lagos and shipped in 10–14 days. Parts can be added to your piece later.']].map(([t, body], i) => (
+            <Zipper key={t} compact coverHeight={64} label={t} autoOpen={500 + i * 450}>
               <div style={{ background: 'var(--fabric-denim-deep)', padding: '20px 18px', minHeight: 64, boxSizing: 'border-box', font: 'var(--text-body-s)', color: 'var(--text-on-denim-muted)' }}>{body}</div>
             </Zipper>
           ))}
