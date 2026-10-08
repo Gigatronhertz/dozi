@@ -90,6 +90,14 @@
     return new Promise(function (res) { var i = new Image(); i.onload = i.onerror = function () { res(src); }; i.src = src; });
   }
 
+  // Pricing for the designable polo (placeholders)
+  var DESIGN_PRICES = { base: 68000, sleeve: { short: 0, long: 6000 }, pocket: 9500, panels: 7500, hem: { none: 0, charm: 6000, strap: 12000 } };
+  DOZI.DESIGN_PRICES = DESIGN_PRICES;
+  DOZI.designPrice = function (state) {
+    var s = normalize(state);
+    return DESIGN_PRICES.base + DESIGN_PRICES.sleeve[s.sleeve] + (s.pocket ? DESIGN_PRICES.pocket : 0) + (s.panels ? DESIGN_PRICES.panels : 0) + DESIGN_PRICES.hem[s.hem];
+  };
+
   DOZI.look = {
     html: html, layers: layers, baseSrc: baseSrc, overlayHtml: overlayHtml, boxStyle: boxStyle,
     normalize: normalize, describe: describe, preload: preload,

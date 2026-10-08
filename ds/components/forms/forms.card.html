@@ -1,0 +1,13 @@
+<!-- @dsCard group="Components" viewport="700x230" name="Forms" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script><script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script><script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script src="../../_ds_bundle.js"></script></head><body><div id="r"></div>
+<script type="text/babel">
+const NS = Object.values(window).find(v => v && typeof v === 'object' && v.Logo && v.Button) || {};
+const { TextField, Select, QuantityStepper } = NS;
+function App(){const [q,setQ]=React.useState(1);return <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:28,padding:28,alignItems:'end'}}>
+ <TextField label="Email" placeholder="you@domain.com"/><Select label="Sort" options={['Newest','Price: low to high','Price: high to low']}/><QuantityStepper value={q} onChange={setQ}/>
+ <TextField label="Phone" value="080" error="Enter a full number"/>
+</div>}
+ReactDOM.createRoot(r).render(<App/>);
+</script></body></html>

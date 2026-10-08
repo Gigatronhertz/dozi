@@ -1,0 +1,17 @@
+<!-- @dsCard group="Components" viewport="700x460" name="Commerce" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script><script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script><script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script src="../../_ds_bundle.js"></script></head><body><div id="r"></div>
+<script type="text/babel">
+const NS = Object.values(window).find(v => v && typeof v === 'object' && v.Logo && v.Button) || {};
+const { ProductCard, SwatchGroup, OptionChip } = NS;
+function App(){ const [c,setC]=React.useState('navy'); const [s,setS]=React.useState('M');
+return <div style={{display:'grid',gridTemplateColumns:'220px 1fr',gap:32,padding:28,background:'var(--fabric-denim)',color:'var(--bone-100)'}}>
+ <ProductCard image="../../assets/img/jacket-core.jpg" name="The Core Jacket" detail="Black / Waxed Cotton" price={185000} tag="Modular"/>
+ <div style={{display:'grid',gap:24,alignContent:'start'}}>
+  <SwatchGroup inverse value={c} onChange={setC} options={[{value:'navy',label:'Navy',color:'var(--navy)'},{value:'oxide',label:'Oxide',color:'var(--oxide)'},{value:'burgundy',label:'Burgundy',color:'var(--burgundy)'},{value:'olive',label:'Deep Olive',color:'var(--olive)'},{value:'cream',label:'Cream',color:'var(--cream)'}]}/>
+  <div style={{display:'flex',gap:8}}>{['XS','S','M','L','XL'].map(x=><OptionChip inverse key={x} selected={s===x} disabled={x==='XS'} onClick={()=>setS(x)}>{x}</OptionChip>)}</div>
+  <div style={{display:'flex',gap:8,flexWrap:'wrap'}}><OptionChip inverse selected>Standard collar</OptionChip><OptionChip inverse meta="+₦12,000">Hood</OptionChip><OptionChip inverse meta="+₦8,000">Utility pocket</OptionChip></div>
+ </div></div>}
+ReactDOM.createRoot(r).render(<App/>);
+</script></body></html>

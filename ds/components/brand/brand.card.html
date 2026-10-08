@@ -1,0 +1,12 @@
+<!-- @dsCard group="Components" viewport="700x220" name="Brand" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script><script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script><script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script src="../../_ds_bundle.js"></script></head><body><div id="r"></div>
+<script type="text/babel">
+const NS = Object.values(window).find(v => v && typeof v === 'object' && v.Logo && v.Button) || {};
+const { Logo } = NS;
+ReactDOM.createRoot(r).render(<div style={{display:'flex',gap:32,alignItems:'center',padding:28}}>
+  <Logo variant="lockup" width={150}/><Logo variant="wordmark" width={160}/><Logo variant="symbol" width={64} color="var(--oxide)"/>
+  <div style={{background:'var(--ink-900)',padding:20}}><Logo variant="wordmark" width={110} color="var(--bone-100)"/></div>
+</div>);
+</script></body></html>

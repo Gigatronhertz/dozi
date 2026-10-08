@@ -1,35 +1,24 @@
 # DOZI — Design. Made for you.
 
-The DOZI website: a fashion house that is also a design studio.
-**Editorial × Design studio × Fashion.** The site stays neutral, and the clothes bring the colour.
-
-Plain static HTML/CSS/JS. There is no build step.
+The DOZI website, built on the DOZI design system (`ds/`): the site is cut from denim, joined by zips and finished with topstitching, rivets and a leather patch. Only garment photography is used, with no people.
 
 ```sh
-python3 -m http.server 8000   # then open http://localhost:8000
+npm install        # esbuild + React (for the vendored build)
+npm run build      # compiles ds/components + src/ into dist/app.js
+python3 -m http.server 8000
 ```
 
-## Pages
+`dist/app.js` and `vendor/` are committed, so the site deploys as static files with no build step on the host.
 
-| Page | File | What it does |
-|---|---|---|
-| Home | `index.html` | Campaign hero, manifesto, a Base → Add → Transform demo, an editorial edit, a full-bleed campaign, key details and colour chapters |
-| Shop | `shop.html` | Editorial grid with mixed image scales and campaign breaks. Filters by `#tops`, `#bottoms`, `#outerwear`, `#footwear`, `#bags` and `#hats` |
-| Design | `design.html` | **The DOZI Design studio.** Steps: Base → Fit → Colour → Collar → Sleeve → Attachments → Finish. Hover any part of the garment to see *CHANGE THIS*. Click it and the part detaches and a component tray opens. Pick a part and it clicks back in with *YOUR DESIGN HAS CHANGED.* Designs can be added to the bag, saved, or shared as a link |
-| Product | `product.html?id=…` | Large photograph on the left. On the right: name, price, material and a *Design it* table. Below that, *How it changes*. The Polo and The Set redraw live as you choose |
-| Collections | `collections.html` | Chapters: Modular Corporate, Modular Utility, Footwear, Carry, Hats |
-| About | `about.html` | Method (Cut / Overlap / Shift / Reassemble), the leaf mark, the photography standard |
+| Path | What it is |
+|---|---|
+| `index.html` | The single-page site. Routes: `#/`, `#/shop[/Category]`, `#/product/<id>`, `#/studio[/<design>]`, `#/chapters` |
+| `ds/` | DOZI design system: tokens, components, logo, guidelines |
+| `src/` | Site screens: Home, Shop, Product, Studio, Bag drawer, plus data and routing |
+| `assets/js/systems.js` | Every photographed piece and its versions (prices are placeholders) |
+| `assets/js/look.js` | The Polo, composited from real photographs and attachments |
+| `assets/img/` | Studio photographs, version images, details |
+| `tools/` | Image pipeline (cutting lineups, recolouring, upscaling) |
+| `docs/IMAGE_PROMPTS.md` | Prompts and checklist for the remaining photography |
 
-## Structure
-
-```
-assets/css/dozi.css    design tokens (bone #F3EFE7, ink #171614, stone #B8AEA0, oxide #8E3426) and all styles
-assets/js/garment.js   SVG technical-flat renderer for The Polo / The Set (one state → one drawing)
-assets/js/site.js      catalogue, nav/footer, bag, search, saved designs, toast
-assets/js/studio.js    the Design studio
-assets/img/            campaign photography and product shots cut from the brand boards
-```
-
-- **Catalogue and prices** are in `PRODUCTS` in `site.js`. The studio pricing is in `DESIGN_PRICES`. **All prices are placeholders.**
-- **Bag and saved designs** live in the browser's `localStorage` until a real commerce backend is wired in. Checkout is a stub.
-- **Photography:** the images are placeholders cut from the concept boards. Before launch, replace them with real shoots that meet the standard on the About page: real skin, fabric, hair, hardware and light. File names map one to one, so drop-in replacements are enough.
+The old page URLs (`shop.html`, `design.html`, `product.html?id=…`, `collections.html`, `about.html`) redirect into the new routes.

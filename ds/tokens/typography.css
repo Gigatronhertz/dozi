@@ -1,0 +1,24 @@
+:root {
+  --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-sans: 'Jost', 'Futura', 'Century Gothic', sans-serif;
+
+  /* Display — serif, light, tight leading */
+  --text-display-xl: 300 clamp(56px, 9vw, 128px)/0.92 var(--font-serif);
+  --text-display-l: 300 clamp(44px, 6vw, 84px)/0.96 var(--font-serif);
+  --text-display-m: 300 clamp(34px, 4vw, 56px)/1.02 var(--font-serif);
+  --text-heading: 400 28px/1.15 var(--font-serif);
+  --text-heading-s: 400 22px/1.2 var(--font-serif);
+  /* Body — sans */
+  --text-body-l: 300 19px/1.6 var(--font-sans);
+  --text-body: 400 16px/1.6 var(--font-sans);
+  --text-body-s: 400 14px/1.55 var(--font-sans);
+  /* Label — tracked uppercase, the brand's signature voice */
+  --text-eyebrow: 500 11px/1.4 var(--font-sans);
+  --text-label: 500 12px/1.4 var(--font-sans);
+  --text-caption: 400 11px/1.4 var(--font-sans);
+
+  --tracking-eyebrow: 0.32em;
+  --tracking-label: 0.18em;
+  --tracking-caption: 0.12em;
+  --tracking-display: -0.01em;
+}

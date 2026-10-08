@@ -1,0 +1,34 @@
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 144px;
+
+  --gutter: clamp(20px, 4vw, 56px);
+  --max-width: 1440px;
+  --header-height: 72px;
+
+  /* Shape — DOZI is cut, not rounded */
+  --radius-0: 0px;
+  --radius-1: 2px;
+  --radius-pill: 999px; /* swatches only */
+
+  --border-hair: 1px solid var(--line);
+  --border-strong: 1px solid var(--line-strong);
+
+  /* Elevation is rare; prefer hairlines */
+  --shadow-1: 0 1px 2px rgba(21, 17, 13, 0.08);
+  --shadow-2: 0 18px 40px -18px rgba(21, 17, 13, 0.35);
+
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-cut: cubic-bezier(0.7, 0, 0.2, 1);
+  --dur-fast: 160ms;
+  --dur: 280ms;
+  --dur-slow: 640ms;
+}

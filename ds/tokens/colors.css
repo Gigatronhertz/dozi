@@ -1,0 +1,44 @@
+:root {
+  /* Neutrals — bone paper to umber ink */
+  --bone-50: #FAF8F3;
+  --bone-100: #F3EFE7;   /* site theme colour, primary paper */
+  --bone-200: #EAE4D8;
+  --bone-300: #DCD3C3;
+  --taupe-400: #B3A18C;
+  --taupe-500: #8C7B67;
+  --umber-600: #5A4C3E;
+  --umber-700: #3A3029;
+  --umber-800: #241D18;
+  --ink-900: #15110D;    /* logo ink */
+
+  /* Chapter colours — each collection chapter owns one */
+  --navy: #1E2638;
+  --oxide: #8A3A22;
+  --burgundy: #5C1F24;
+  --olive: #3B3D2A;
+  --forest: #23302A;
+  --chocolate: #4A2E20;
+  --cream: #E6DCC8;
+
+  /* Hardware */
+  --brass: #B08A4A;
+  --brass-dark: #8A6A35;
+
+  /* Semantic */
+  --surface-page: var(--bone-100);
+  --surface-raised: var(--bone-50);
+  --surface-sunken: var(--bone-200);
+  --surface-inverse: var(--ink-900);
+  --text-primary: var(--ink-900);
+  --text-secondary: var(--umber-600);
+  --text-muted: var(--taupe-500);
+  --text-inverse: var(--bone-100);
+  --text-inverse-muted: #BFB2A0;
+  --line: rgba(21, 17, 13, 0.14);
+  --line-strong: rgba(21, 17, 13, 0.32);
+  --line-inverse: rgba(243, 239, 231, 0.22);
+  --accent: var(--oxide);
+  --focus: var(--brass);
+  --success: #4E5E3A;
+  --error: #9A2E1E;
+}

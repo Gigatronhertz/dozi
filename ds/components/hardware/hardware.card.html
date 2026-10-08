@@ -1,0 +1,17 @@
+<!-- @dsCard group="Components" viewport="700x460" name="Hardware" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script><script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script><script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script src="../../_ds_bundle.js"></script></head><body style="background:var(--fabric-denim)"><div id="r"></div>
+<script type="text/babel">
+const NS = Object.values(window).find(v => v && typeof v === 'object' && v.Logo && v.Button) || {};
+const { Zipper, ZipSeam, Stitched, Rivet, LeatherPatch } = NS;
+ReactDOM.createRoot(r).render(<div style={{display:'grid',gap:18}}>
+ <Zipper label="Drag the pull" title="The edit" coverHeight={200}><div style={{background:'var(--fabric-denim-washed)',color:'var(--bone-100)',padding:40,minHeight:200,boxSizing:'border-box',font:'var(--text-display-m)'}}>Unzipped.</div></Zipper>
+ <ZipSeam/>
+ <div style={{display:'flex',gap:20,alignItems:'center',padding:'0 24px 24px'}}>
+  <Stitched surface="bone" rivets double style={{width:150,height:80}}/>
+  <Stitched surface="washed" style={{width:120,height:80}}/>
+  <LeatherPatch width={170} tagline="Made by us. Made yours."/>
+  <Rivet size={18}/><Rivet size={12}/>
+ </div></div>);
+</script></body></html>
